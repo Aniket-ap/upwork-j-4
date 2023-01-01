@@ -325,222 +325,96 @@
 			<div class="modal-body border">
 				<!--Modal body goes here.-->
 				<div class="container mt-5">
-					<!-- TAB -->
-					<nav class="mt-5">
-						<div class="nav nav-tabs" role="tablist">
-							<button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-page-setup-${wid}-${tid}" role="tab" aria-selected="true"> Page Setup <span class="ms-1 d-inline-block rounded-circle"></span>
-							</button>
-							<button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-formating-${wid}-${tid}" role="tab" aria-selected="false"> Formatting </button>
-							<button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-headers-footers-${wid}-${tid}" role="tab" aria-selected="false"> Headers & Footers <span class="ms-1 d-inline-block rounded-circle"></span>
-							</button>
-						</div>
-					</nav>
-					<!-- TAB CONTENT -->
-					<div class="tab-content mt-3">
-						<!-- page setup Content -->
-						<div class="tab-pane show active" id="nav-page-setup-${wid}-${tid}" role="tabpanel">
-							<table border="0" style="width:100%">
-								<tr>
-									<td class="p-3">
-										<label for="print-${wid}-${tid}" class="form-label">Print</label>
-										<div class="input-group">
-											<select class="form-select" id="print-${wid}-${tid}">
-												<option selected value="workbook">Workbook</option>
+					<div id="email-container-${wid}-${tid}" >
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td colspan="2" class="p-3">
+											<span class="pb-2 fw-bolder">Email Service</span><br>
+											<span class="text-secondary">You may choose to send emails through Gmail,SparkPost,SendGrid or Amazon</span><br>
+										</td>
+									</tr>
+									<tr>
+										<td class="p-3">
+											<label for="service-provider-${wid}-${tid}" class="form-label">Service Provider</label>
+											<select class="form-select" id="service-provider-${wid}-${tid}">
+												<option selected value="">Choose your email service provider...</option>
+												<option value="gmail">Gmail</option>
+												<option value="amazon">Amazon SES</option>
+												<option value="sendgrid">SendGrid</option>
+												<option value="sparkpost">SparkPost</option>
 											</select>
-											<span class="input-group-text bg-theme range-span-${wid}-${tid}">Range</span>
-											<input type="text" class="form-control" id="print-range-${wid}-${tid}" aria-label="Range input">
-											<span class="input-group-text bg-theme w-book-select-${wid}-${tid}">Selection</span>
-											<div class="dropdown selection-${wid}-${tid} w-book-select-${wid}-${tid} w-50">
-												<input type="text" class=" form-control form-select dropdown-toggle" data-bs-toggle="dropdown" value="All Sheets" aria-expanded="false" data-bs-auto-close="outside" readonly>
-												<div class="dropdown-menu p-0 w-100">
-													<div class="list-group">
-														
-													</div>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<label for="size-${wid}-${tid}" class="form-label">Paper size</label>
-										<div class="input-group">
-											<select class="form-select" id="size-${wid}-${tid}">
-												<option data-width="8.5" data-height="11" selected="" value="letter">Letter (8.5" x 11")</option>
-												<option data-width="11" data-height="17" value="tabloid">Tabloid (11" x 17")</option>
-												<option data-width="8.5" data-height="14" value="legal">Legal (8.5" x 14")</option>
-												<option data-width="5.5" data-height="8.5" value="statement">Statement (5.5" x 8.5")</option>
-												<option data-width="7.25" data-height="10.5" value="executive">Executive (7.25" x 10.5")</option>
-												<option data-width="8.5" data-height="13" value="folio">Folio (8.5" x 13")</option>
-												<option data-width="11.69" data-height="16.54" value="a3">A3 (11.69" x 16.54")</option>
-												<option data-width="8.27" data-height="11.69" value="a4">A4 (8.27" x 11.69")</option>
-												<option data-width="5.83" data-height="8.27" value="a5">A5 (5.83" x 8.27")</option>
-												<option data-width="9.84" data-height="13.90" value="b4">B4 (9.84" x 13.90")</option>
-												<option data-width="6.93" data-height="9.84" value="b5">B5 (6.93" x 9.84")</option>
-												<option data-width="" data-height="" value="custom">Custom</option>
+										</td>
+									</tr>
+									<tr class="aws-row-${wid}-${tid}">
+										<td class="p-3">
+											<label for="aws-region-${wid}-${tid}" class="form-label">AWS Region</label>
+											<select class="form-select" id="aws-region-${wid}{tid}">
+												<option value="">Choose AWS Region...</option>
+												<option value="us-east-2">US East (Ohio)</option>
+												<option value="us-east-1">US East (N. Virginia)</option>
+												<option value="us-west-1">US West (N. California)</option>
+												<option value="us-west-2">US West (Oregon)</option>
+												<option value="af-south-1">Africa (Cape Town)</option>
+												<option value="ap-south-1">Asia Pacific (Mumbai)</option>
+												<option value="ap-northeast-2">Asia Pacific (Seoul)</option>
+												<option value="ap-southeast-1">Asia Pacific (Singapore)</option>
+												<option value="ap-southeast-2">Asia Pacific (Sydney)</option>
+												<option value="ap-northeast-1">Asia Pacific (Tokyo)</option>
+												<option value="ca-central-1">Canada (Central)</option>
+												<option value="eu-central-1">Europe (Frankfurt)</option>
+												<option value="eu-west-1">Europe (Ireland)</option>
+												<option value="eu-west-2">Europe (London)</option>
+												<option value="eu-south-1">Europe (Milan)</option>
+												<option value="eu-west-3">Europe (Paris)</option>
+												<option value="eu-north-1">Europe (Stockholm)</option>
+												<option value="me-south-1">Middle East (Bahrain)</option>
+												<option value="sa-east-1">South America (São Paulo)</option>
+												<option value="us-gov-west-1">AWS GovCloud (US-West)</option>
 											</select>
-											<span class="input-group-text bg-theme">Width ″</span>
-											<input type="number" class="form-control" id="size-width-${wid}-${tid}" step="0.5" min="2.4" max="60" value="8.5" >
-											<span class="input-group-text bg-theme">Height ″</span>
-											<input type="number" class="form-control" id="size-height-${wid}-${tid}" step="0.5" min="2.5" max="60" value="11" >
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<label for="margins-${wid}-${tid}" class="form-label">Margins</label>
-										<div class="input-group">
-											<select class="form-select" id="margins-${wid}-${tid}">
-												<option data-top="0.70" data-left="0.70" data-right="0.70" data-bottom="0.70" value="normal" selected="">Normal</option>
-												<option data-top="0.25" data-left="0.25" data-right="0.25" data-bottom="0.25" value="narrow">Narrow</option>
-												<option data-top="1" data-left="1" data-right="1" data-bottom="1" value="wide">Wide</option>
-												<option data-top="0.75" data-left="0.7" data-right="0.7" data-bottom="0.75" value="custom">Custom</option>
+										</td>
+										<td class="p-3">
+											<label for="ses-key-${wid}-${tid}" class="form-label">SES Key id</label>
+											<input type="text" class="form-control" id="ses-key-${wid}-${tid}" />
+										</td>
+										<td class="p-3">
+											<label for="ses-secret-${wid}-${tid}" class="form-label">SES Secret</label>
+											<input type="text" class="form-control" id="ses-secret-${wid}-${tid}" />
+										</td>
+									</tr>
+									<tr class="sendgrid-row-${wid}-${tid}">
+										<td class="p-3">
+											<label for="sendgrid-api-${wid}-${tid}" class="form-label">SendGrid API Key</label>
+											<input type="text" class="form-control" id="sendgrid-api-${wid}-${tid}" />
+										</td>
+									</tr>
+									<tr class="sparkpost-row-${wid}-${tid}">
+										<td class="p-3">
+											<label for="sparkpost-api-${wid}-${tid}" class="form-label">SparkPost API Key</label>
+											<input type="text" class="form-control" id="sparkpost-api-${wid}-${tid}" />
+										</td>
+									</tr>
+									<tr class="gmail-row-${wid}-${tid}">
+										<td colspan="2" class="p-3">
+											<span class="pb-2 fw-bolder">The Sender</span><br>
+											<span class="text-secondary">Specify the name and email alias that is shown as the sender in the email.</span><br>
+										</td>
+									</tr>
+									<tr class="gmail-row-${wid}-${tid}">
+										<td class="p-3">
+											<label for="sender-name-${wid}-${tid}" class="form-label">Sender's Name</label>
+											<input type="text" class="form-control" id="sender-name-${wid}-${tid}" />
+										</td>
+										<td class="p-3">
+											<label for="sender-email-${wid}-${tid}" class="form-label">Sender's Email</label>
+											<select class="form-select" id="sender-email-${wid}-${tid}">
+												<option selected>somethinggooddone@gmail.com</option>
 											</select>
-											<span class="input-group-text bg-theme">Top ″</span>
-											<input type="number" class="form-control custom-width" value="0.70" min="0" id="margins-top-${wid}-${tid}">
-											<span class="input-group-text bg-theme">Left ″</span>
-											<input type="number" class="form-control custom-width" value="0.70" min="0" id="margins-left-${wid}-${tid}">
-											<span class="input-group-text bg-theme">Right ″</span>
-											<input type="number" class="form-control custom-width" value="0.70" min="0" id="margins-right-${wid}-${tid}">
-											<span class="input-group-text bg-theme">Bottom ″</span>
-											<input type="number" class="form-control custom-width" value="0.70" min="0" id="margins-bottom-${wid}-${tid}">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<label for="scale-${wid}-${tid}" class="form-label">Scale</label>
-										<div class="input-group">
-											<select class="form-select" id="scale-${wid}-${tid}">
-												<option selected value="normal">Normal (100%)</option>
-												<option value="fittowidth">Fit to width</option>
-												<option value="fittoheight">Fit to height</option>
-												<option value="fittopage">Fit to page</option>
-												<option value="custom">Custom</option>
-												<option value="fit_pagebreak">Fit to pagebreaks</option>
-											</select>
-											<span class="input-group-text bg-theme custom-span-${wid}-${tid}">%</span>
-											<input type="number" class="form-control" value="100" step="1" min="0" max="10000" id="percentage-${wid}-${tid}" oninput="validity.valid||(value='');" >
-											<span class="input-group-text bg-theme break-span-${wid}-${tid}">Break row at </span>
-											<input type="number" class="form-control" value="20" min="1" id="break-row-${wid}-${tid}" oninput="validity.valid||(value='');" />
-											<span class="input-group-text bg-theme break-span-${wid}-${tid} colname-${wid}-${tid}">Break column at </span>
-											<input type="number" class="form-control" value="5" min="1" id="break-column-${wid}-${tid}" oninput="validity.valid||(value='');" />
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<label class="form-label d-block mb-3">Page Orientation</label>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="pageSetupRadio" id="landscape-${wid}-${tid}" value="landscape" checked>
-											<label class="form-check-label" for="landscape-${wid}-${tid}">Landscape</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="pageSetupRadio" id="portrait-${wid}-${tid}" value="portrait">
-											<label class="form-check-label" for="portrait-${wid}-${tid}">Portrait</label>
-										</div>
-									</td>
-								</tr>
+										</td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
-						<!-- Formating Content -->
-						<div class="tab-pane" id="nav-formating-${wid}-${tid}" role="tabpanel">
-							<table border="0" style="width:100%">
-								<tr>
-									<td class="p-3">
-										<label for="pageorder-${wid}-${tid}" class="form-label">Page order</label>
-										<select class="form-select" id="pageorder-${wid}-${tid}">
-											<option selected value="over_then_down">Over, then down</option>
-											<option value="down_then_over">Down, then over</option>
-										</select>
-									</td>
-									<td class="p-3">
-										<label for="horizontal-alignment-${wid}-${tid}" class="form-label">Horizontal Alignment</label>
-										<select class="form-select" id="horizontal-alignment-${wid}-${tid}">
-											<option selected value="horizontal_center">Center</option>
-											<option value="horizontal_left">Left</option>
-											<option value="horizontal_right">Right</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<div class="d-flex flex-column justify-content-end">
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox" checked id="showgridlines-${wid}-${tid}">
-												<label class="form-check-label" for="showgridlines-${wid}-${tid}">
-													Show gridlines
-												</label>
-											</div>
-											<div class="form-check">
-												<input class="form-check-input" checked type="checkbox" id="shownotes-${wid}-${tid}">
-												<label class="form-check-label" for="shownotes-${wid}-${tid}">
-													Show notes
-												</label>
-											</div>
-										</div>
-									</td>
-									<td class="p-3">
-										<label for="vertical-alignment-${wid}-${tid}" class="form-label">Vertical Alignment</label>
-										<select class="form-select" id="vertical-alignment-${wid}-${tid}">
-											<option selected value="vertical_top">Top</option>
-											<option value="vertical_bottom">Bottom</option>
-											<option value="vertical_center">Center</option>
-										</select>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<!-- Headers & Footers Content -->
-						<div class="tab-pane" id="nav-headers-footers-${wid}-${tid}" role="tabpanel">
-							<table border="0" style="width:100%">
-								<tr>
-									<td class="p-3">
-										<label for="top-left-${wid}-${tid}" class="form-label">Top Left</label>
-										<input type="text" class="form-control" id="top-left-${wid}-${tid}">
-									</td>
-									<td class="p-3">
-										<label for="top-middle-${wid}-${tid}" class="form-label">Top Middle</label>
-										<input type="text" class="form-control" id="top-middle-${wid}-${tid}">
-									</td>
-									<td class="p-3">
-										<label for="top-right-${wid}-${tid}" class="form-label">Top Right</label>
-										<input type="text" class="form-control" id="top-right-${wid}-${tid}">
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<label for="bottom-left-${wid}-${tid}" class="form-label">Bottom Left</label>
-										<input type="text" class="form-control" id="bottom-left-${wid}-${tid}">
-									</td>
-									<td class="p-3">
-										<label for="bottom-middle-${wid}-${tid}" class="form-label">Bottom Middle</label>
-										<input type="text" class="form-control" id="bottom-middle-${wid}-${tid}">
-									</td>
-									<td class="p-3">
-										<label for="bottom-right-${wid}-${tid}" class="form-label">Bottom Right</label>
-										<input type="text" class="form-control" id="bottom-right-${wid}-${tid}">
-									</td>
-								</tr>
-								<tr>
-									<td class="p-3">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="frozen-rows-${wid}-${tid}">
-											<label class="form-check-label" for="frozen-rows-${wid}-${tid}">
-												Repeat frozen rows
-											</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="frozen-columns-${wid}-${tid}">
-											<label class="form-check-label" for="frozen-columns-${wid}-${tid}">
-												Repeat frozen columns
-											</label>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -552,170 +426,33 @@
 </div>`);
 		$(`#tasks-point-${wid}`).append(html_task);
 		if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
-		// Initially disabled margin and page sizes value
-		$(`#margins-top-${wid}-${tid}, #margins-left-${wid}-${tid}, #margins-right-${wid}-${tid}, #margins-bottom-${wid}-${tid}, 
-        #size-height-${wid}-${tid},#size-width-${wid}-${tid} `).prop('disabled', true);
-		$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', true);
-		
-		// Hide range, break row at, break column and custom text box
-		$(`.range-span-${wid}-${tid}, #print-range-${wid}-${tid}, .break-span-${wid}-${tid}, #break-column-${wid}-${tid}, #break-row-${wid}-${tid}, .custom-span-${wid}-${tid}, #percentage-${wid}-${tid}`).hide();
-		
-		// Initial style for print and scale select tag
-		$(`#scale-${wid}-${tid}`).css("border-radius", ".375rem");
-		$(`.selection-${wid}-${tid} > input`).css({
-			"border-top-left-radius": "0",
-			"border-bottom-left-radius": "0"
-		});
-		// Dynamic Break column at value
-		$(`#break-column-${wid}-${tid}`).on('change', function(e) {
-			$(`.colname-${wid}-${tid}`).text(`Break column at ${toColumnName($(`#break-column-${wid}-${tid}`).val())}`).trigger("change");
-		});
-		// Print Option value added 
-		var data = ["Sheet1", "Sheet2", "Sheet3", "Sheet4", ];
-		for (var index = 0; index < data.length; index++) {
-			$(`#print-${wid}-${tid}`).append(`<option value="${data[index]}">${data[index]}</option>`);
-			$(`#print-${wid}-${tid}`).append(`<option value="${data[index]}" class="srange">Selected range of ${data[index]}</option>`);
-			$(`.selection-${wid}-${tid} .list-group`).append(`
-					<label class="list-group-item">
-						<input class="form-check-input me-1" type="checkbox" value="${data[index]}" checked> ${data[index]} </label>
-				`)
-		}
-		// switch height and width value according to landscape and portrait radio value
-		$("input[type='radio'][name='pageSetupRadio']").change(function() {
-			console.log("switch height and width called")
-			let paperSizeVal = $(`#size-${wid}-${tid}`).val();
-			let width = $(`#size-width-${wid}-${tid}`).val();
-			let height = $(`#size-height-${wid}-${tid}`).val();
-			if ($(this).val() == 'portrait' && paperSizeVal === "custom") {
-				$(`#size-width-${wid}-${tid}`).val(height);
-				$(`#size-height-${wid}-${tid}`).val(width);
-			} else if ($(this).val() == 'landscape' && paperSizeVal === "custom") {
-				$(`#size-width-${wid}-${tid}`).val(height);
-				$(`#size-height-${wid}-${tid}`).val(width);
-			}
-		});
-		// All sheet work when workbook selected
-		
-		const totalLength = $(`.selection-${wid}-${tid} :checkbox`).length;
-		
-		$(`.selection-${wid}-${tid} :checkbox`).change(function() {
-			const checked = $(`.selection-${wid}-${tid} :checkbox:checked`).length;
-			
-			if (checked == 0) {
-				alert("One of the sheets must be selected");
-				$(this).prop('checked', true);
-				return
-			} else if(checked == 1){
-				$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', false);
-			} else if(checked > 1){
-				if($(`#scale-${wid}-${tid}`).val() === "fit_pagebreak"){
-					$(`#scale-${wid}-${tid}`).val("normal").trigger("change");
-				}
-				$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', true)
-			}
-			$(`.selection-${wid}-${tid} input[type='text']`).val(checked == totalLength ? "All Sheets" : `${checked} Sheet(s) selected`)
-		});
 
-		$(`#size-${wid}-${tid}`).on("change", function() {
-			console.log("size called")
-			var height = $(this).children('option:selected').data('height')
-			var width = $(this).children('option:selected').data('width')
-			if (height == "" && width == "") {
-				$(`#size-height-${wid}-${tid}`).prop('disabled', false)
-				$(`#size-width-${wid}-${tid}`).prop('disabled', false)
-			} else {
-				$(`#size-height-${wid}-${tid}`).prop('disabled', true)
-				$(`#size-width-${wid}-${tid}`).prop('disabled', true)
-			}
-			$(`#size-width-${wid}-${tid}`).val(width);
-			$(`#size-height-${wid}-${tid}`).val(height);
-		})
-		$(`#margins-${wid}-${tid}`).on("change", function() {
-			console.log("margins called")
-			let marginsVal = $(`#margins-${wid}-${tid}`).val();
-			var top = $(`#margins-top-${wid}-${tid}`).val($(this).children('option:selected').data('top'))
-			var left = $(`#margins-left-${wid}-${tid}`).val($(this).children('option:selected').data('left'))
-			var right = $(`#margins-right-${wid}-${tid}`).val($(this).children('option:selected').data('right'))
-			var bottom = $(`#margins-bottom-${wid}-${tid}`).val($(this).children('option:selected').data('bottom'))
-			if (marginsVal === "custom") {
-				$(`#margins-top-${wid}-${tid}, #margins-left-${wid}-${tid}, #margins-right-${wid}-${tid}, #margins-bottom-${wid}-${tid}`).prop('disabled', false);
-			} else {
-				$(`#margins-top-${wid}-${tid}, #margins-left-${wid}-${tid}, #margins-right-${wid}-${tid}, #margins-bottom-${wid}-${tid}`).prop('disabled', true);
-			}
-			$(`#margins-top-${wid}-${tid}`).val(top.val())
-			$(`#margins-left-${wid}-${tid}`).val(left.val())
-			$(`#margins-right-${wid}-${tid}`).val(right.val())
-			$(`#margins-bottom-${wid}-${tid}`).val(bottom.val())
-		});
-		
-		$(`#print-${wid}-${tid}`).on("change", function() {
-			var value = $(this).children('option:selected').text();
-			if ($(this).val() === "workbook") {
-				if($(`.selection-${wid}-${tid} :checkbox:checked`).length > 1){
-					$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', true);
-				} else{
-					$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', false);
-				}
+		// Hide all the row initially
+		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
 
-				$(`.w-book-select-${wid}-${tid}`).show()
-				$(`#print-${wid}-${tid}`).css({
-					"border-top-right-radius": "0",
-					"border-bottom-right-radius": "0"
-				});
-				$(`.selection-${wid}-${tid} > input`).css({
-					"border-top-left-radius": "0",
-					"border-bottom-left-radius": "0"
-				});
-			} else {
-				$(`.w-book-select-${wid}-${tid}`).hide();
-				$(`#print-${wid}-${tid}`).css("border-radius", ".375rem");
-				$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', false)
-			}
+		// TODO: For the future
+		// <tr>
+		// 	<td colspan="2">
+		// 		<hr>
+		// 	</td>
+		// </tr>
 
-			if (value.indexOf('Selected range of ') == 0) {
-				if($(`#scale-${wid}-${tid}`).val() === "fit_pagebreak"){
-					$(`#scale-${wid}-${tid}`).val("normal").trigger("change");
-				}
-				$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', true);
-				$(`.range-span-${wid}-${tid}, #print-range-${wid}-${tid}`).show()
-				$(`#print-${wid}-${tid}`).css({
-					"border-top-right-radius": "0",
-					"border-bottom-right-radius": "0"
-				});
-				$(`#print-range-${wid}-${tid}`).css({
-					"border-top-right-radius": ".375rem",
-					"border-bottom-right-radius": ".375rem"
-				});
-			} else {
-				$(`.range-span-${wid}-${tid}, #print-range-${wid}-${tid}`).hide();
-				$(`#scale-${wid}-${tid} option:eq(5)`).prop('disabled', false)
-			} 
-		});
-		
-		$(`#scale-${wid}-${tid}`).on("change", function() {
+		$(`#service-provider-${wid}-${tid}`).on("change", function() {
 			var value = $(this).children('option:selected').val();
-				$(`.break-span-${wid}-${tid}, #break-column-${wid}-${tid}, #break-row-${wid}-${tid}`).hide();
-				$(`#scale-${wid}-${tid}`).css("border-radius", ".375rem");
-				$(`.custom-span-${wid}-${tid}, #percentage-${wid}-${tid}`).hide();
-
-			if (value == "fit_pagebreak") {
-				$(`.break-span-${wid}-${tid}, #break-column-${wid}-${tid}, #break-row-${wid}-${tid}`).show();
-				$(`#break-column-${wid}-${tid}`).trigger("change")
-				$(`#scale-${wid}-${tid}`).css({
-					"border-top-right-radius": "0",
-					"border-bottom-right-radius": "0"
-				});
-			}
-			if (value == "custom") {
-				$(`.custom-span-${wid}-${tid}, #percentage-${wid}-${tid}`).show();
-				$(`#scale-${wid}-${tid}`).css({
-					"border-top-right-radius": "0",
-					"border-bottom-right-radius": "0"
-				});
-				$(`#percentage-${wid}-${tid}`).css({
-					"border-top-right-radius": ".375rem",
-					"border-bottom-right-radius": ".375rem"
-				});
+			if(value === "gmail"){
+				$(`.gmail-row-${wid}-${tid}`).show();
+				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}`).hide();
+			} else if(value === "amazon"){
+				$(`.aws-row-${wid}-${tid}`).show();
+				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+			} else if(value === "sendgrid"){
+				$(`.sendgrid-row-${wid}-${tid}`).show();
+				$(`.sparkpost-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+			} else if(value === "sparkpost"){
+				$(`.sparkpost-row-${wid}-${tid}`).show();
+				$(`.sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+			} else{
+				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
 			}
 		})
 		
