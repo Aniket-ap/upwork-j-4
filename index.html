@@ -579,11 +579,11 @@
 		$(`#editor-type-${wid}-${tid}`).on("change", function() {
 			var value = $(this).children('option:selected').val();
 			if(value === "wysiwyg"){
-				$(`.email-bodyhtml-section-${wid}-${tid}`).hide();
+				$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
 				$(`.email-body-section-${wid}-${tid}`).show();
 			} else if(value === "html"){
 				$(`.email-bodyhtml-section-${wid}-${tid}`).show();
-				$(`.email-body-section-${wid}-${tid}`).hide();
+				$(`.email-body-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
 			} else{
 				$(`.google-docs-section-${wid}-${tid}`).show();
 				$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
