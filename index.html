@@ -416,6 +416,117 @@
 									</tr>
 								</tbody>
 							</table>
+
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td colspan="3">
+											<hr>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<span class="pb-2 fw-bolder">The Recipients</span><br>
+											<span class="text-secondary">Specify one or more email addresses that your notifications are sent to.</span><br>
+										</td>
+									</tr>
+									<tr>
+										<td class="p-3">
+											<label for="to-recipients-${wid}-${tid}" class="form-label">TO Recipients</label>
+											<input type="text" class="form-control" id="to-recipients-${wid}-${tid}" />
+										</td>
+										<td class="p-3">
+											<label for="cc-recipients-${wid}-${tid}" class="form-label">CC Recipients</label>
+											<input type="text" class="form-control" id="cc-recipients-${wid}-${tid}" />
+										</td>
+										<td class="p-3">
+											<label for="bcc-recipients-${wid}-${tid}" class="form-label">BCC Recipients</label>
+											<input type="text" class="form-control" id="bcc-recipients-${wid}-${tid}" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td class="p-3">
+											<label for="send-email-${wid}-${tid}" class="form-label">Send Email to:</label>
+											<select class="form-select" id="send-email-${wid}-${tid}">
+												<option selected>Choose Form Question</option>
+											</select>
+										</td>
+										<td class="p-3">
+											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email Address</label>
+											<select class="form-select" id="reply-email-${wid}-${tid}">
+												<option selected>somethinggooddone@gmail.com</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td colspan="3">
+											<hr>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td colspan="2">
+											<span class="pb-2 fw-bolder">The Message</span><br>
+											<span class="text-secondary">Specify the subject line and body of your message. Use Scriptslets for conditional text in email templates.</span><br>
+										</td>
+									</tr>
+									<tr>
+										<td class="p-3" colspan="2">
+											<label for="email-subject-${wid}-${tid}" class="form-label">Email Subject</label>
+											<input type="text" class="form-control" id="email-subject-${wid}-${tid}" />
+										</td>
+										<td class="p-3">
+											<label for="editor-type-${wid}-${tid}" class="form-label">Reply-to Email Address</label>
+											<select class="form-select" id="editor-type-${wid}-${tid}">
+												<option selected value="wysiwyg">WYSIWYG</option>
+												<option value="html">HTML</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td class="p-3" colspan="3">
+											<label for="email-body-${wid}-${tid}" class="form-label">Email Body</label>
+											<textarea class="form-control" id="email-body-${wid}-${tid}" rows="10"
+												placeholder="Enter email body here. You can also use HTML tags and {{Column Titles}} for personalized emails."
+											></textarea>
+											<textarea class="form-control" id="email-body-html-${wid}-${tid}" rows="10"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<span class="pb-2 fw-bolder">File Attachments</span><br>
+											<span class="text-secondary">You can attach files or include merged file linkes from Google Drive How to do it?</span><br>
+										</td>
+									</tr>
+									<tr>
+										<td class="p-3">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="" id="attach-all-merged-${wid}-${tid}" checked>
+												<label class="form-check-label" for="attach-all-merged-${wid}-${tid}">
+													Attach all merged files generated in this workflow
+												</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="" id="attach-google-form-${wid}-${tid}" >
+												<label class="form-check-label" for="attach-google-form-${wid}-${tid}">
+													Attach Google Form uploaded Files (if any)
+												</label>
+											</div>	
+										</td>	
+									</tr>
+								</tbody>
+							</table>
 						</div>
 				</div>
 			</div>
@@ -430,14 +541,18 @@
 		if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 
 		// Hide all the row initially
-		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, #email-body-html-${wid}-${tid}`).hide();
 
-		// TODO: For the future
-		// <tr>
-		// 	<td colspan="2">
-		// 		<hr>
-		// 	</td>
-		// </tr>
+		$(`#editor-type-${wid}-${tid}`).on("change", function() {
+			var value = $(this).children('option:selected').val();
+			if(value === "wysiwyg"){
+				$(`#email-body-html-${wid}-${tid}`).hide();
+				$(`#email-body-${wid}-${tid}`).show();
+			} else if(value === "html"){
+				$(`#email-body-html-${wid}-${tid}`).show();
+				$(`#email-body-${wid}-${tid}`).hide();
+			}
+		})
 
 		$(`#service-provider-${wid}-${tid}`).on("change", function() {
 			var value = $(this).children('option:selected').val();
@@ -457,7 +572,6 @@
 				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
 			}
 		})
-		
 		
 		$(`.restore-${wid}-${tid}`).on('click', function(e) {
 			console.log("Restore called")
