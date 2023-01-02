@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -37,7 +38,7 @@
 </head>
 
 <body>
-	<button type="button" class="m-3 btn btn-primary" id="pdfprint">New PDF File</button>
+	<button type="button" class="m-3 btn btn-primary" id="email">Send Email</button>
 	<button type="button" class="m-3 btn btn-outline-secondary" id="restoreall">Restore All</button>
 	<button type="button" class="m-3 btn btn-outline-secondary" id="sendall">Send All</button>
 	<hr>
@@ -58,7 +59,7 @@
 
 	function getAddTaskEnvelope(wid, tid, tasktype, task_body) {
 		return `<li class="border-top-0 border-end-0 border-start-0 list-group-item tsk-${wid}-${tid} ${tasktype}" data-id="${wid}-${tid}" data-type="${tasktype}">
-			<img src="https://img.icons8.com/color/48/null/pdf.png" class="float-start" />
+			<img src="https://img.icons8.com/color/48/null/gmail-new.png" class="float-start" />
 			<div class="btn-group float-end">
 				<button type="button" class="btn dropdown-toggle btn-light" data-bs-toggle="dropdown" aria-expanded="false"> Actions </button>
 				<ul class="dropdown-menu dropdown-menu-lg-end">
@@ -71,9 +72,9 @@
 		</li>`
 	}
 
-	function getPDFFileValues(wid, tid) {
+	function getEmailValues(wid, tid) {
 		let result = {};
-		result.taskType = "pdfprint";
+		result.taskType = "email";
 		result.id = tid;
 		result.name = `${wid}-${tid}`;
 		// Page setup
@@ -308,18 +309,18 @@
 		return a
 	};
 
-	function createTask_PDFFile(wid, task) {
+	function createTask_Email(wid, task) {
 		var tid = task?.id ? task.id : Math.random().toString(36).substr(2, 8);
-		var html_task = getAddTaskEnvelope(wid, tid, "pdfprint", `<div class="ms-5 ps-3">
-	<span class="task-title">PDF File: ${wid}-${tid} </span><br>
+		var html_task = getAddTaskEnvelope(wid, tid, "email", `<div class="ms-5 ps-3">
+	<span class="task-title">Email: ${wid}-${tid} </span><br>
 	<span class="text-secondary small">Last updated </span><span class="time text-secondary small" data-time="1667889127596">15 days ago</span>
 </div>
 <div class="modal fade" id="task-modal-${wid}-${tid}" aria-hidden="true" aria-labelledby="task-modal-label-${wid}-${tid}" tabindex="-1">
 	<div class="modal-dialog modal-fullscreen">
 		<div class="modal-content">
 			<div class="modal-header border border-bottom-0 bg-theme">
-				<img style="width:25px;" src="https://img.icons8.com/color/48/null/pdf.png" class="float-start">&nbsp;
-				<span class="modal-title fw-bolder ms-1 ps-0" id="task-modal-label-${wid}-${tid}">Create PDF File Instance</span>
+				<img style="width:25px;" src="https://img.icons8.com/color/48/null/gmail-new.png" class="float-start">&nbsp;
+				<span class="modal-title fw-bolder ms-1 ps-0" id="task-modal-label-${wid}-${tid}">Create New Email Instance</span>
 				<button type="button" class="me-1 btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body border">
@@ -331,7 +332,7 @@
 									<tr>
 										<td colspan="2" class="p-3">
 											<span class="pb-2 fw-bolder">Email Service</span><br>
-											<span class="text-secondary">You may choose to send emails through Gmail,SparkPost,SendGrid or Amazon</span><br>
+											<span class="text-secondary">You may choose to send emails through Gmail, SparkPost, SendGrid or Amazon SES</span><br>
 										</td>
 									</tr>
 									<tr>
@@ -555,8 +556,8 @@
 		$(`.done-${wid}-${tid}`).on('click', function(e) {
 			e.preventDefault()
 			e.stopPropagation()
-			console.log(JSON.stringify(getPDFFileValues(wid, tid), null, 4));
-			// if (getPDFFileValues(wid, tid)) {
+			console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
+			// if (getEmailValues(wid, tid)) {
 			// $(`#task-modal-${wid}-${tid}`).modal('hide');
 			// }
 		})
@@ -565,15 +566,15 @@
 	$(`.tdelete`).on('click', function(e) {
 		$(this).parent().parent().parent().parent().remove();
 	})
-	$("#pdfprint").click(function(event) {
-		createTask_PDFFile("l9zgqjql")
+	$("#email").click(function(event) {
+		createTask_Email("l9zgqjql")
 	});
 	$("#restoreall").click(function(event) {
 		$("#tasks-point-l9zgqjql").html('')
 		var wflw = {
 			id: "l9zgqjql",
 			tasks: [{
-				"taskType": "pdfprint",
+				"taskType": "email",
 				"id": "y9f514dg",
 				"name": "l9zgqjql-y9f514dg",
 				"print": {
@@ -629,7 +630,7 @@
 					}
 				}
 			}, {
-				"taskType": "pdfprint",
+				"taskType": "email",
 				"id": "j2f514dg",
 				"name": "l9zgqjql-j2f514dg",
 				"print": {
@@ -697,8 +698,8 @@
 			}]
 		}
 		wflw.tasks.forEach(t => {
-			if (t.taskType == "pdfprint") {
-				createTask_PDFFile(wflw.id, t)
+			if (t.taskType == "email") {
+				createTask_Email(wflw.id, t)
 			}
 		})
 	});
@@ -706,9 +707,9 @@
 		r = [];
 		error = false;
 		$(`#tasks-point-l9zgqjql`).children().each(function() {
-			if ($(this).data("type") == "pdfprint") {
+			if ($(this).data("type") == "email") {
 				var ids = $(this).data("id").split("-");
-				var w = getPDFFileValues(ids[0], ids[1])
+				var w = getEmailValues(ids[0], ids[1])
 				if (!w) {
 					$(`#task-modal-${$(this).data("id")}`).modal("show");
 					error = true;
@@ -722,3 +723,4 @@
 </body>
 
 </html>
+
