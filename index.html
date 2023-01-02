@@ -487,24 +487,52 @@
 											<input type="text" class="form-control" id="email-subject-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="editor-type-${wid}-${tid}" class="form-label">Reply-to Email Address</label>
+											<label for="editor-type-${wid}-${tid}" class="form-label">Editor Type</label>
 											<select class="form-select" id="editor-type-${wid}-${tid}">
 												<option selected value="wysiwyg">WYSIWYG</option>
 												<option value="html">HTML</option>
+												<option value="googleDocs">Google Docs</option>
 											</select>
 										</td>
 									</tr>
-									<tr>
+									<tr class="email-body-section-${wid}-${tid}">
 										<td class="p-3" colspan="3">
 											<label for="email-body-${wid}-${tid}" class="form-label">Email Body</label>
 											<textarea class="form-control" id="email-body-${wid}-${tid}" rows="10"
 												placeholder="Enter email body here. You can also use HTML tags and {{Column Titles}} for personalized emails."
 											></textarea>
+										</td>
+									<tr/>
+									<tr class="email-bodyhtml-section-${wid}-${tid}">
+										<td class="p-3" colspan="3">
+											<label for="email-body-html-${wid}-${tid}" class="form-label">Email Body</label>
 											<textarea class="form-control" id="email-body-html-${wid}-${tid}" rows="10"></textarea>
 										</td>
 									</tr>
-									<tr>
+									<tr class="google-docs-section-${wid}-${tid}">
 										<td colspan="2">
+											<span class="pb-2 fw-bolder">Email Template</span><br />
+											<span class="text-secondary">Choose a Google Docs template from Google Drive that would be used for an email body</span><br />
+										</td>
+									</tr>
+									<tr class="google-docs-section-${wid}-${tid}">
+										<td class="p-3">
+											<input id="template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
+											<label for="template_email_pick-${wid}-${tid}">Document Template<sup class="text-danger">*</sup>
+												<a class="hide openlink" href=""><i class="initial material-symbols-outlined icon-text-primary align-middle">open_in_new</i></a>
+											</label>
+											<div class="input-group">
+												<input id="template_name-${wid}-${tid}" type="text" class="form-control" aria-label="Choose Docs Template" readonly>
+												<button class="btn btn-outline-primary" type="button" id="template_email_pick-${wid}-${tid}"><span class="initial align-middle align-middle material-symbols-outlined">folder_open</span>&nbsp;<span class="btn-text">Choose</span></button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table border="0" width="100%" style="table-layout:fixed;">
+								<tbody>
+									<tr>
+										<td>
 											<span class="pb-2 fw-bolder">File Attachments</span><br>
 											<span class="text-secondary">You can attach files or include merged file linkes from Google Drive How to do it?</span><br>
 										</td>
@@ -513,13 +541,13 @@
 										<td class="p-3">
 											<div class="form-check">
 												<input class="form-check-input" type="checkbox" value="" id="attach-all-merged-${wid}-${tid}" checked>
-												<label class="form-check-label" for="attach-all-merged-${wid}-${tid}">
+												<label class="fw-normal" for="attach-all-merged-${wid}-${tid}">
 													Attach all merged files generated in this workflow
 												</label>
 											</div>
 											<div class="form-check">
 												<input class="form-check-input" type="checkbox" value="" id="attach-google-form-${wid}-${tid}" >
-												<label class="form-check-label" for="attach-google-form-${wid}-${tid}">
+												<label class="fw-normal" for="attach-google-form-${wid}-${tid}">
 													Attach Google Form uploaded Files (if any)
 												</label>
 											</div>	
@@ -541,16 +569,19 @@
 		if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 
 		// Hide all the row initially
-		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, #email-body-html-${wid}-${tid}`).hide();
+		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
 
 		$(`#editor-type-${wid}-${tid}`).on("change", function() {
 			var value = $(this).children('option:selected').val();
 			if(value === "wysiwyg"){
-				$(`#email-body-html-${wid}-${tid}`).hide();
-				$(`#email-body-${wid}-${tid}`).show();
+				$(`.email-bodyhtml-section-${wid}-${tid}`).hide();
+				$(`.email-body-section-${wid}-${tid}`).show();
 			} else if(value === "html"){
-				$(`#email-body-html-${wid}-${tid}`).show();
-				$(`#email-body-${wid}-${tid}`).hide();
+				$(`.email-bodyhtml-section-${wid}-${tid}`).show();
+				$(`.email-body-section-${wid}-${tid}`).hide();
+			} else{
+				$(`.google-docs-section-${wid}-${tid}`).show();
+				$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
 			}
 		})
 
