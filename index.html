@@ -3,144 +3,155 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/somethinggoodone/cdn/AniketPradhan_bootstrap.css" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
 	<style>
-input,select,textarea {
-    text-overflow: ellipsis
-}
+		input,
+		select,
+		textarea {
+			text-overflow: ellipsis
+		}
 
-button:active,button:focus {
-    outline-color: #c6a5ff
-}
+		button:active,
+		button:focus {
+			outline-color: #c6a5ff
+		}
 
-.bg-theme {
-    background: rgba(103,58,183,.07)!important
-}
+		.bg-theme {
+			background: rgba(103, 58, 183, .07) !important
+		}
 
-.text-theme {
-    color: #673ab7
-}
+		.text-theme {
+			color: #673ab7
+		}
 
-* {
-    font-size: 14px
-}
+		* {
+			font-size: 14px
+		}
 
-input[readonly] {
-    background-color: transparent!important;
-    cursor: inherit
-}
+		input[readonly] {
+			background-color: transparent !important;
+			cursor: inherit
+		}
 
-.nav-link.active,.textbutton,label {
-    color: #374151!important;
-    font-weight: 500!important
-}
+		.nav-link.active,
+		.textbutton,
+		label {
+			color: #374151 !important;
+			font-weight: 500 !important
+		}
 
-.initial {
-    font-size: initial!important
-}
+		.initial {
+			font-size: initial !important
+		}
 
-.hide {
-    display: none
-}
+		.hide {
+			display: none
+		}
 
-.name {
-    background-color: transparent;
-    font-weight: 400;
-    outline: 0;
-    width: 50%
-}
+		.name {
+			background-color: transparent;
+			font-weight: 400;
+			outline: 0;
+			width: 50%
+		}
 
-.name:focus {
-    border-bottom: 2px solid #673ab7!important
-}
+		.name:focus {
+			border-bottom: 2px solid #673ab7 !important
+		}
 
-.list-group-item-action:hover svg path {
-    fill: #673ab7
-}
+		.list-group-item-action:hover svg path {
+			fill: #673ab7
+		}
 
-.bottom,.bottom-left,.bottom-right,.button-bar,.button-bar-right {
-    bottom: 0!important;
-    position: absolute!important
-}
+		.bottom,
+		.bottom-left,
+		.bottom-right,
+		.button-bar,
+		.button-bar-right {
+			bottom: 0 !important;
+			position: absolute !important
+		}
 
-.bottom-right,.button-bar-right {
-    right: 0!important
-}
+		.bottom-right,
+		.button-bar-right {
+			right: 0 !important
+		}
 
-.flx-row {
-    display: flex;
-    justify-content: space-between
-}
+		.flx-row {
+			display: flex;
+			justify-content: space-between
+		}
 
-.accordion-button {
-    display: unset!important
-}
+		.accordion-button {
+			display: unset !important
+		}
 
-.accordion-button:not(.collapsed) {
-    border-left: 1px solid var(--bs-border-color);
-    border-right: 1px solid var(--bs-border-color);
-    border-top: 1px solid var(--bs-border-color);
-    transition: ease .25s
-}
+		.accordion-button:not(.collapsed) {
+			border-left: 1px solid var(--bs-border-color);
+			border-right: 1px solid var(--bs-border-color);
+			border-top: 1px solid var(--bs-border-color);
+			transition: ease .25s
+		}
 
-.accordion-button:not(.collapsed) .wdesc {
-    display: none!important;
-    animation: 5s fadeIn!important;
-    animation-fill-mode: forwards!important
-}
+		.accordion-button:not(.collapsed) .wdesc {
+			display: none !important;
+			animation: 5s fadeIn !important;
+			animation-fill-mode: forwards !important
+		}
 
-.accordion-button:not(.collapsed) .name {
-    font-weight: 500!important
-}
+		.accordion-button:not(.collapsed) .name {
+			font-weight: 500 !important
+		}
 
-.accordion-body {
-    border-left: 1px solid var(--bs-border-color);
-    border-bottom: 1px solid var(--bs-border-color);
-    border-right: 1px solid var(--bs-border-color)
-}
+		.accordion-body {
+			border-left: 1px solid var(--bs-border-color);
+			border-bottom: 1px solid var(--bs-border-color);
+			border-right: 1px solid var(--bs-border-color)
+		}
 
-.search {
-    width: -webkit-fill-available
-}
+		.search {
+			width: -webkit-fill-available
+		}
 
-.info-icon {
-    color: #673ab7;
-    font-size: large;
-    font-weight: 900
-}
+		.info-icon {
+			color: #673ab7;
+			font-size: large;
+			font-weight: 900
+		}
 
-.material-symbols-outlined {
-    font-variation-settings: "FILL"0,"wght"400,"GRAD"0,"opsz"40
-}
+		.material-symbols-outlined {
+			font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 40
+		}
 
-.icon-text-primary {
-    opacity: .5!important
-}
+		.icon-text-primary {
+			opacity: .5 !important
+		}
 
-.icon-text-primary:hover {
-    opacity: 1!important
-}
+		.icon-text-primary:hover {
+			opacity: 1 !important
+		}
 
-.picker-dialog-bg {
-    z-index: 200000!important
-}
+		.picker-dialog-bg {
+			z-index: 200000 !important
+		}
 
-.picker-dialog {
-    z-index: 200001!important
-}
+		.picker-dialog {
+			z-index: 200001 !important
+		}
 
-.messagemodal {
-    z-index: 200004!important
-}
+		.messagemodal {
+			z-index: 200004 !important
+		}
 
-.icon32 {
-    width: 32px
-}
-
+		.icon32 {
+			width: 32px
+		}
 	</style>
 </head>
 
@@ -155,7 +166,7 @@ input[readonly] {
 		function atoo(f, b) {
 			var c = [],
 				d = !1;
-			f.forEach(function(g, e) {
+			f.forEach(function (g, e) {
 				var a = {};
 				a.key = g;
 				a.value = 0 === b[e].length ? "" : b[e];
@@ -214,7 +225,7 @@ input[readonly] {
 					}
 				} else {
 					let arr = [];
-					$(`.selection-${wid}-${tid} :checkbox:checked`).each(function() {
+					$(`.selection-${wid}-${tid} :checkbox:checked`).each(function () {
 						arr.push({
 							"sheet": $(this).val()
 						});
@@ -285,7 +296,7 @@ input[readonly] {
 				result.scale = {
 					"type": "custom",
 					"value": {
-						"percentage": `${percentageVal/100}`,
+						"percentage": `${percentageVal / 100}`,
 					}
 				}
 			} else if (scaleVal == "fit_pagebreak") {
@@ -439,14 +450,13 @@ input[readonly] {
 									<tr>
 										<td colspan="3">
 											<span class="pb-2 fw-bolder">Email Service</span><br>
-											<span class="text-secondary">You may choose to send emails through Gmail, SparkPost, SendGrid or Amazon SES</span><br>
+											<span class="text-secondary">You may choose to send emails through Gmail, Amazon SES, SendGrid, SparkPost</span><br>
 										</td>
 									</tr>
 									<tr>
-										<td class="p-3" colspan="2">
+										<td class="p-3" colspan="3">
 											<label for="service-provider-${wid}-${tid}" class="form-label">Service Provider</label>
 											<select class="form-select" id="service-provider-${wid}-${tid}">
-												<option selected value="">Choose your email service provider...</option>
 												<option value="gmail">Gmail</option>
 												<option value="amazon">Amazon SES</option>
 												<option value="sendgrid">SendGrid</option>
@@ -491,34 +501,29 @@ input[readonly] {
 										</td>
 									</tr>
 									<tr class="sendgrid-row-${wid}-${tid}">
-										<td colspan="2" class="p-3">
+										<td colspan="3" class="p-3">
 											<label for="sendgrid-api-${wid}-${tid}" class="form-label">SendGrid API Key</label>
 											<input type="text" class="form-control" id="sendgrid-api-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="sparkpost-row-${wid}-${tid}">
-										<td colspan="2" class="p-3">
+										<td colspan="3" class="p-3">
 											<label for="sparkpost-api-${wid}-${tid}" class="form-label">SparkPost API Key</label>
 											<input type="text" class="form-control" id="sparkpost-api-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="gmail-row-${wid}-${tid}">
-										<td class="p-3">
-											<label for="sender-name-${wid}-${tid}" class="form-label">Sender's Name</label>
+										<td colspan="2" class="p-3">
+											<label for="sender-name-${wid}-${tid}" class="form-label">Sender Name</label>
 											<input type="text" class="form-control" id="sender-name-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="sender-email-${wid}-${tid}" class="form-label">Sender's Email</label>
+											<label for="sender-email-${wid}-${tid}" class="form-label">Sender Email</label>
 											<select class="form-select" id="sender-email-${wid}-${tid}">
 												<option selected>somethinggooddone@gmail.com</option>
 											</select>
 										</td>
 									</tr>
-								</tbody>
-							</table>
-
-							<table border="0" width="100%" style="table-layout:fixed;">
-								<tbody>
 									<tr>
 										<td colspan="3">
 											<hr>
@@ -544,37 +549,19 @@ input[readonly] {
 											<input type="text" class="form-control" id="bcc-${wid}-${tid}" />
 										</td>
 									</tr>
-								</tbody>
-							</table>
-							<table border="0" width="100%" style="table-layout:fixed;">
-								<tbody>
 									<tr>
-										<td class="p-3">
-											<label for="send-email-${wid}-${tid}" class="form-label">Send Email to:</label>
-											<select class="form-select" id="send-email-${wid}-${tid}">
-												<option selected>Select Form Question</option>
-											</select>
-										</td>
-										<td class="p-3">
+										<td colspan="2" class="p-3">
 											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email</label>
 											<select class="form-select" id="reply-email-${wid}-${tid}">
 												<option selected>somethinggooddone@gmail.com</option>
 											</select>
 										</td>
 									</tr>
-								</tbody>
-							</table>
-							<table border="0" width="100%" style="table-layout:fixed;">
-								<tbody>
 									<tr>
 										<td colspan="3">
 											<hr>
 										</td>
 									</tr>
-								</tbody>
-							</table>
-							<table border="0" width="100%" style="table-layout:fixed;">
-								<tbody>
 									<tr>
 										<td colspan="3">
 											<span class="pb-2 fw-bolder">Subject & Message</span><br>
@@ -591,7 +578,7 @@ input[readonly] {
 											<select class="form-select" id="editor-type-${wid}-${tid}">
 												<option selected value="wysiwyg">WYSIWYG</option>
 												<option value="html">HTML</option>
-												<option value="googleDocs">Google Docs</option>
+												<option value="docs">Google Docs</option>
 											</select>
 										</td>
 									</tr>
@@ -612,15 +599,9 @@ input[readonly] {
 										</td>
 									</tr>
 									<tr class="google-docs-section-${wid}-${tid}">
-										<td colspan="2">
-											<span class="pb-2 fw-bolder">Email Template</span><br />
-											<span class="text-secondary">Choose a Google Docs template from Google Drive that would be used for an email body</span><br />
-										</td>
-									</tr>
-									<tr class="google-docs-section-${wid}-${tid}">
-										<td class="p-3">
+										<td class="p-3" colspan="2">
 											<input id="template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
-											<label for="template_email_pick-${wid}-${tid}">Document Template<sup class="text-danger">*</sup>
+											<label for="template_email_pick-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
 												<a class="hide openlink" href=""><i class="initial material-symbols-outlined icon-text-primary align-middle">open_in_new</i></a>
 											</label>
 											<div class="input-group">
@@ -629,18 +610,19 @@ input[readonly] {
 											</div>
 										</td>
 									</tr>
-								</tbody>
-							</table>
-							<table border="0" width="100%" style="table-layout:fixed;">
-								<tbody>
 									<tr>
-										<td>
+										<td colspan="3">
+											<hr>
+										</td>
+									</tr>									
+									<tr>
+										<td colspan="3">
 											<span class="pb-2 fw-bolder">File Attachments</span><br>
 											<span class="text-secondary">You can attach files or include merged file linkes from Google Drive How to do it?</span><br>
 										</td>
 									</tr>
 									<tr>
-										<td class="p-3">
+										<td colspan="3" class="p-3">
 											<div class="form-check">
 												<input class="form-check-input" type="checkbox" value="" id="attach-all-merged-${wid}-${tid}" checked>
 												<label class="fw-normal" for="attach-all-merged-${wid}-${tid}">
@@ -669,11 +651,9 @@ input[readonly] {
 </div>`);
 			$(`#tasks-point-${wid}`).append(html_task);
 			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
-
 			// Hide all the row initially
 			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
-
-			$(`#editor-type-${wid}-${tid}`).on("change", function() {
+			$(`#editor-type-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
 				if (value === "wysiwyg") {
 					$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
@@ -686,8 +666,7 @@ input[readonly] {
 					$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
 				}
 			})
-
-			$(`#service-provider-${wid}-${tid}`).on("change", function() {
+			$(`#service-provider-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
 				if (value === "gmail") {
 					$(`.gmail-row-${wid}-${tid}`).show();
@@ -704,9 +683,8 @@ input[readonly] {
 				} else {
 					$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
 				}
-			})
-
-			$(`.restore-${wid}-${tid}`).on('click', function(e) {
+			}).trigger("change")
+			$(`.restore-${wid}-${tid}`).on('click', function (e) {
 				console.log("Restore called")
 				if (!task) return;
 				var pj = task;
@@ -714,9 +692,8 @@ input[readonly] {
 				// Print
 				if (pj.print.type === "workbook") {
 					$(`#print-${wid}-${tid}`).val(pj.print.type).trigger("change");
-
 					$(`.selection-${wid}-${tid} :checkbox`).prop('checked', false); //deselect all
-					$(`.selection-${wid}-${tid} :checkbox`).each(function() {
+					$(`.selection-${wid}-${tid} :checkbox`).each(function () {
 						pj.print.value.forEach((val) => {
 							if (val.sheet === $(this).val()) {
 								$(this).prop('checked', true).trigger("change");
@@ -725,16 +702,13 @@ input[readonly] {
 					}).trigger("change");
 				} else if (pj.print.type === "custom") {
 					if (pj.print.value[0].hasOwnProperty("range")) {
-						optionText = `Selected range of ${ pj.print.value[0].sheet}`;
+						optionText = `Selected range of ${pj.print.value[0].sheet}`;
 						$(`#print-range-${wid}-${tid}`).val(pj.print.value[0].range)
-					} else
-						optionText = `${ pj.print.value[0].sheet}`
-
-					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function() {
+					} else optionText = `${pj.print.value[0].sheet}`
+					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function () {
 						if ($(this).text() === optionText) return this;
 					}).attr('selected', true).trigger("change");
 				}
-
 				// Paper size
 				if (pj.size.type === "custom") {
 					$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
@@ -754,21 +728,17 @@ input[readonly] {
 					$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
 				}
 				// Scale
-
 				if (pj.scale.type === "custom") {
 					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
 					$(`#percentage-${wid}-${tid}`).val(pj.scale.value.percentage * 100);
 				} else if (pj.scale.type == "fit_pagebreak") {
-
 					console.log("calling " + pj.scale.type);
-
 					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
 					$(`#break-row-${wid}-${tid}`).val(pj.scale.value.row)
 					$(`#break-column-${wid}-${tid}`).val(pj.scale.value.column).trigger("change");
 				} else {
 					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
 				}
-
 				// Set page orientation
 				$("input[name='pageSetupRadio']").val([`${pj.orientation.type}`])
 				// Formatting Tab
@@ -795,8 +765,7 @@ input[readonly] {
 				$(`#bottom-middle-${wid}-${tid}`).val(pj.hf.value.bottom_center)
 				$(`#bottom-right-${wid}-${tid}`).val(pj.hf.value.bottom_right)
 			}).trigger("click");
-
-			$(`.done-${wid}-${tid}`).on('click', function(e) {
+			$(`.done-${wid}-${tid}`).on('click', function (e) {
 				e.preventDefault()
 				e.stopPropagation()
 				console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
@@ -804,21 +773,17 @@ input[readonly] {
 				// $(`#task-modal-${wid}-${tid}`).modal('hide');
 				// }
 			})
-
 			var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', {
-					'list': 'ordered'
-				}, {
+				'list': 'ordered'
+			}, {
 					'list': 'bullet'
-				},
-				{
+				}, {
 					size: ['small', false, 'large', 'huge']
 				}, {
 					'align': []
 				}, {
 					'direction': 'rtl'
-				}, 'clean'
-			]
-
+				}, 'clean']
 			$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
 			var quill = new Quill(`#editor-${wid}-${tid}`, {
 				theme: 'snow',
@@ -833,16 +798,15 @@ input[readonly] {
 					toolbar: false
 				}
 			});
-
 		}
 		// Delete Instance
-		$(`.tdelete`).on('click', function(e) {
+		$(`.tdelete`).on('click', function (e) {
 			$(this).parent().parent().parent().parent().remove();
 		})
-		$("#email").click(function(event) {
+		$("#email").click(function (event) {
 			createTask_Email("l9zgqjql")
 		});
-		$("#restoreall").click(function(event) {
+		$("#restoreall").click(function (event) {
 			$("#tasks-point-l9zgqjql").html('')
 			var wflw = {
 				id: "l9zgqjql",
@@ -850,124 +814,38 @@ input[readonly] {
 					"taskType": "email",
 					"id": "y9f514dg",
 					"name": "l9zgqjql-y9f514dg",
-					"print": {
-						"type": "custom",
-						"value": [{
-							"sheet": "Sheet1",
-							"range": "A2:A"
-						}]
-					},
-					"size": {
-						"type": "letter"
-					},
-					"scale": {
-						"type": "custom",
-						"value": {
-							"percentage": "0.78"
-						}
-					},
-					"margins": {
-						"type": "normal"
-					},
-					"orientation": {
-						"type": "landscape"
-					},
-					"gridlines": {
-						"value": true
-					},
-					"notes": {
-						"value": true
-					},
-					"pageorder": {
-						"value": "down_then_over"
-					},
-					"h_alignment": {
-						"value": "horizontal_left"
-					},
-					"v_alignment": {
-						"value": "vertical_center"
-					},
-					"hf": {
-						"options": {
-							"hf_fzr": true,
-							"hf_fzc": true
-						},
-						"type": "custom",
-						"value": {
-							"top_left": "Top Left",
-							"top_center": "Top Middle",
-							"top_right": "Top Right",
-							"bottom_left": "Bottom Left",
-							"bottom_center": "Bottom Middle",
-							"bottom_right": "Bottom Right"
-						}
-					}
+					"taskType": "Email",
+					"senderEmail": "somethinggoodone@gmail.com",
+					"replyTo": "somethinggoodone@gmail.com",
+					"editorType": "wysiwyg",
+					"htmlBody": "<p>This is a test email</p>",
+					"attachMergedFiles": true,
+					"serviceName": "Gmail",
+					"senderName": "Anony Dee",
+					"subject": "Test subject",
+					"to": "to1recipient1@gmail.com,torecipient2@gmail.com",
+					"cc": "cc@gmail.com",
+					"bcc": "bcc@gmail.com",
+					"emailQuestion": "{{Your Fathers email?}}",
+					"attachFormUploads": true
 				}, {
 					"taskType": "email",
 					"id": "j2f514dg",
 					"name": "l9zgqjql-j2f514dg",
-					"print": {
-						"type": "workbook",
-						"value": [{
-							"sheet": "Sheet2"
-						}]
-					},
-					"size": {
-						"type": "custom",
-						"value": {
-							"height": "20",
-							"width": "20"
-						}
-					},
-					"scale": {
-						"type": "fit_pagebreak",
-						"value": {
-							"row": "29",
-							"column": "7"
-						}
-					},
-					"margins": {
-						"type": "custom",
-						"value": {
-							"top": "1",
-							"left": "1",
-							"right": "1",
-							"bottom": "1"
-						}
-					},
-					"orientation": {
-						"type": "protait"
-					},
-					"gridlines": {
-						"value": true
-					},
-					"notes": {
-						"value": true
-					},
-					"pageorder": {
-						"value": "down_then_over"
-					},
-					"h_alignment": {
-						"value": "horizontal_left"
-					},
-					"v_alignment": {
-						"value": "vertical_center"
-					},
-					"hf": {
-						"options": {
-							"hf_fzr": true,
-							"hf_fzc": true
-						},
-						"type": "custom",
-						"value": {
-							"top_left": "Top Left",
-							"top_center": "Top Middle",
-							"top_right": "Top Right",
-							"bottom_left": "Bottom Left",
-							"bottom_center": "Bottom Middle",
-							"bottom_right": "Bottom Right"
-						}
-					}
+					"taskType": "Email",
+					"senderEmail": "tetrahedron@gmail.com",
+					"replyTo": "square@gmail.com",
+					"editorType": "html",
+					"htmlBody": "<p>This is a test email</p><h1>This is heading</h1>",
+					"attachMergedFiles": true,
+					"serviceName": "Gmail",
+					"senderName": "Anony Dee",
+					"subject": "Test subject",
+					"to": "triangle@gmail.com,pentagon@gmail.com",
+					"cc": "cc@gmail.com",
+					"bcc": "bcc@gmail.com",
+					"emailQuestion": "{{Your Mothers email?}}",
+					"attachFormUploads": false
 				}]
 			}
 			wflw.tasks.forEach(t => {
@@ -976,10 +854,10 @@ input[readonly] {
 				}
 			})
 		});
-		$(`#sendall`).click(function(e) {
+		$(`#sendall`).click(function (e) {
 			r = [];
 			error = false;
-			$(`#tasks-point-l9zgqjql`).children().each(function() {
+			$(`#tasks-point-l9zgqjql`).children().each(function () {
 				if ($(this).data("type") == "email") {
 					var ids = $(this).data("id").split("-");
 					var w = getEmailValues(ids[0], ids[1])
