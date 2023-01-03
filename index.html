@@ -152,6 +152,9 @@
 		.icon32 {
 			width: 32px
 		}
+		.form-check{
+			margin-bottom: 0 !important;
+		}
 	</style>
 </head>
 
@@ -520,7 +523,6 @@
 										<td class="p-3">
 											<label for="sender-email-${wid}-${tid}" class="form-label">Sender Email</label>
 											<select class="form-select" id="sender-email-${wid}-${tid}">
-												<option selected>somethinggooddone@gmail.com</option>
 											</select>
 										</td>
 									</tr>
@@ -553,7 +555,6 @@
 										<td colspan="2" class="p-3">
 											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email</label>
 											<select class="form-select" id="reply-email-${wid}-${tid}">
-												<option selected>somethinggooddone@gmail.com</option>
 											</select>
 										</td>
 									</tr>
@@ -653,6 +654,17 @@
 			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 			// Hide all the row initially
 			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
+			
+			var SENDERS_EMAILS = [{email:"somethinggoodone@gmail.com"},{email:"example@gmail.com"}]
+			SENDERS_EMAILS.forEach((data, index) => {
+				$(`#sender-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+			})
+			
+			var REPLY_TO_EMAILS = [{email:"somethinggoodone@gmail.com"},{email:"example@gmail.com"}]
+			REPLY_TO_EMAILS.forEach((data, index) => {
+				$(`#reply-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+			})
+
 			$(`#editor-type-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
 				if (value === "wysiwyg") {
