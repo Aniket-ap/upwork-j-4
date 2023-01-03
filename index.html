@@ -1,5 +1,3 @@
-
-
 <html>
 
 <head>
@@ -11,33 +9,138 @@
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 	<style>
-	input,
-	select,
-	textarea {
-		text-overflow: ellipsis;
-	}
+input,select,textarea {
+    text-overflow: ellipsis
+}
 
-	button:focus,
-	button:active {
-		outline-color: #c6a5ff;
-	}
+button:active,button:focus {
+    outline-color: #c6a5ff
+}
 
-	label {
-		font-weight: 500 !important;
-		color: #374151 !important;
-	}
+.bg-theme {
+    background: rgba(103,58,183,.07)!important
+}
 
-	.bg-theme {
-		background: rgba(103, 58, 183, .07) !important;
-	}
+.text-theme {
+    color: #673ab7
+}
 
-	.text-theme {
-		color: #673ab7;
-	}
+* {
+    font-size: 14px
+}
 
-	.form-control.custom-width {
-		min-width: 75px;
-	}
+input[readonly] {
+    background-color: transparent!important;
+    cursor: inherit
+}
+
+.nav-link.active,.textbutton,label {
+    color: #374151!important;
+    font-weight: 500!important
+}
+
+.initial {
+    font-size: initial!important
+}
+
+.hide {
+    display: none
+}
+
+.name {
+    background-color: transparent;
+    font-weight: 400;
+    outline: 0;
+    width: 50%
+}
+
+.name:focus {
+    border-bottom: 2px solid #673ab7!important
+}
+
+.list-group-item-action:hover svg path {
+    fill: #673ab7
+}
+
+.bottom,.bottom-left,.bottom-right,.button-bar,.button-bar-right {
+    bottom: 0!important;
+    position: absolute!important
+}
+
+.bottom-right,.button-bar-right {
+    right: 0!important
+}
+
+.flx-row {
+    display: flex;
+    justify-content: space-between
+}
+
+.accordion-button {
+    display: unset!important
+}
+
+.accordion-button:not(.collapsed) {
+    border-left: 1px solid var(--bs-border-color);
+    border-right: 1px solid var(--bs-border-color);
+    border-top: 1px solid var(--bs-border-color);
+    transition: ease .25s
+}
+
+.accordion-button:not(.collapsed) .wdesc {
+    display: none!important;
+    animation: 5s fadeIn!important;
+    animation-fill-mode: forwards!important
+}
+
+.accordion-button:not(.collapsed) .name {
+    font-weight: 500!important
+}
+
+.accordion-body {
+    border-left: 1px solid var(--bs-border-color);
+    border-bottom: 1px solid var(--bs-border-color);
+    border-right: 1px solid var(--bs-border-color)
+}
+
+.search {
+    width: -webkit-fill-available
+}
+
+.info-icon {
+    color: #673ab7;
+    font-size: large;
+    font-weight: 900
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL"0,"wght"400,"GRAD"0,"opsz"40
+}
+
+.icon-text-primary {
+    opacity: .5!important
+}
+
+.icon-text-primary:hover {
+    opacity: 1!important
+}
+
+.picker-dialog-bg {
+    z-index: 200000!important
+}
+
+.picker-dialog {
+    z-index: 200001!important
+}
+
+.messagemodal {
+    z-index: 200004!important
+}
+
+.icon32 {
+    width: 32px
+}
+
 	</style>
 </head>
 
@@ -49,20 +152,20 @@
 	<ul class="list-group" id="tasks-point-l9zgqjql"></ul>
 	<div id="modal"></div>
 	<script>
-	function atoo(f, b) {
-		var c = [],
-			d = !1;
-		f.forEach(function(g, e) {
-			var a = {};
-			a.key = g;
-			a.value = 0 === b[e].length ? "" : b[e];
-			"" === a.key.trim() && "" !== a.value ? d = !0 : "" !== a.key.trim() && c.push(a);
-		});
-		return d ? !1 : c;
-	}
+		function atoo(f, b) {
+			var c = [],
+				d = !1;
+			f.forEach(function(g, e) {
+				var a = {};
+				a.key = g;
+				a.value = 0 === b[e].length ? "" : b[e];
+				"" === a.key.trim() && "" !== a.value ? d = !0 : "" !== a.key.trim() && c.push(a);
+			});
+			return d ? !1 : c;
+		}
 
-	function getAddTaskEnvelope(wid, tid, tasktype, task_body) {
-		return `<li class="border-top-0 border-end-0 border-start-0 list-group-item tsk-${wid}-${tid} ${tasktype}" data-id="${wid}-${tid}" data-type="${tasktype}">
+		function getAddTaskEnvelope(wid, tid, tasktype, task_body) {
+			return `<li class="border-top-0 border-end-0 border-start-0 list-group-item tsk-${wid}-${tid} ${tasktype}" data-id="${wid}-${tid}" data-type="${tasktype}">
 			<img src="https://img.icons8.com/color/48/null/gmail-new.png" class="float-start" />
 			<div class="btn-group float-end">
 				<button type="button" class="btn dropdown-toggle btn-light" data-bs-toggle="dropdown" aria-expanded="false"> Actions </button>
@@ -74,248 +177,248 @@
 			</div>
 			${task_body}
 		</li>`
-	}
-
-	function getEmailValues(wid, tid) {
-		let result = {};
-		result.taskType = "email";
-		result.id = tid;
-		result.name = `${wid}-${tid}`;
-		// Page setup
-		function pageSetupTabRedirect() {
-			$(`[data-bs-target="#nav-page-setup-${wid}-${tid}"]`).trigger('click');
 		}
-		// Print
-		let printValue = $(`#print-${wid}-${tid}`).val();
-		let printTextValue = $(`#print-${wid}-${tid} option:selected`).text();
-		if (printTextValue.indexOf("Selected range of ") == 0) {
-			let rangeVal = $(`#print-range-${wid}-${tid}`).val();
-			if (rangeVal.trim().length === 0) {
-				pageSetupTabRedirect();
-				alert("Range should not be empty in Page setup tab");
-				return;
+
+		function getEmailValues(wid, tid) {
+			let result = {};
+			result.taskType = "email";
+			result.id = tid;
+			result.name = `${wid}-${tid}`;
+			// Page setup
+			function pageSetupTabRedirect() {
+				$(`[data-bs-target="#nav-page-setup-${wid}-${tid}"]`).trigger('click');
+			}
+			// Print
+			let printValue = $(`#print-${wid}-${tid}`).val();
+			let printTextValue = $(`#print-${wid}-${tid} option:selected`).text();
+			if (printTextValue.indexOf("Selected range of ") == 0) {
+				let rangeVal = $(`#print-range-${wid}-${tid}`).val();
+				if (rangeVal.trim().length === 0) {
+					pageSetupTabRedirect();
+					alert("Range should not be empty in Page setup tab");
+					return;
+				} else {
+					result.print = {
+						"type": "custom",
+						"value": [{
+							"sheet": `${printValue}`,
+							"range": `${rangeVal}`
+						}]
+					}
+				}
+			} else if (printValue === "workbook") {
+				let webworkVal = $(`.selection-${wid}-${tid} > input`).val();
+				if (webworkVal === "All Sheets") {
+					result.print = {
+						"type": "workbook"
+					}
+				} else {
+					let arr = [];
+					$(`.selection-${wid}-${tid} :checkbox:checked`).each(function() {
+						arr.push({
+							"sheet": $(this).val()
+						});
+					});
+					result.print = {
+						"type": "workbook",
+						"value": arr
+					}
+				}
 			} else {
 				result.print = {
 					"type": "custom",
 					"value": [{
-						"sheet": `${printValue}`,
-						"range": `${rangeVal}`
+						"sheet": `${printValue}`
 					}]
 				}
 			}
-		} else if (printValue === "workbook") {
-			let webworkVal = $(`.selection-${wid}-${tid} > input`).val();
-			if (webworkVal === "All Sheets") {
-				result.print = {
-					"type": "workbook"
+			// Paper Size
+			let paperSizeVal = $(`#size-${wid}-${tid}`).val();
+			let height;
+			let width;
+			if (paperSizeVal == "custom") {
+				height = $(`#size-height-${wid}-${tid}`).val();
+				width = $(`#size-width-${wid}-${tid}`).val();
+				if (height.trim().length === 0 || width.trim().length === 0) {
+					pageSetupTabRedirect();
+					alert("Height and Width should not be empty in Page setup tab");
+					return;
+				}
+				if (width < 2.5) {
+					pageSetupTabRedirect()
+					alert(`Please enter Page Width value greater than 2.5" in Paper size`);
+					return;
+				}
+				if (height < 2.5) {
+					pageSetupTabRedirect()
+					alert(`Please enter Page Height value greater than 2.5" in Paper size`);
+					return;
+				}
+				if (height > 60 || width > 60) {
+					pageSetupTabRedirect()
+					alert(`Please enter a number no greater than 60" in Paper size`);
+					return;
+				}
+				result.size = {
+					"type": "custom",
+					"value": {
+						"height": `${height}`,
+						"width": `${width}`,
+					}
 				}
 			} else {
-				let arr = [];
-				$(`.selection-${wid}-${tid} :checkbox:checked`).each(function() {
-					arr.push({
-						"sheet": $(this).val()
-					});
-				});
-				result.print = {
-					"type": "workbook",
-					"value": arr
+				width = $(`#size-${wid}-${tid}`).find(':selected').attr('data-width');
+				height = $(`#size-${wid}-${tid}`).find(':selected').attr('data-height');
+				result.size = {
+					"type": `${paperSizeVal}`
 				}
 			}
-		} else {
-			result.print = {
-				"type": "custom",
-				"value": [{
-					"sheet": `${printValue}`
-				}]
-			}
-		}
-		// Paper Size
-		let paperSizeVal = $(`#size-${wid}-${tid}`).val();
-		let height;
-		let width;
-		if (paperSizeVal == "custom") {
-			height = $(`#size-height-${wid}-${tid}`).val();
-			width = $(`#size-width-${wid}-${tid}`).val();
-			if (height.trim().length === 0 || width.trim().length === 0) {
-				pageSetupTabRedirect();
-				alert("Height and Width should not be empty in Page setup tab");
-				return;
-			}
-			if (width < 2.5) {
-				pageSetupTabRedirect()
-				alert(`Please enter Page Width value greater than 2.5" in Paper size`);
-				return;
-			}
-			if (height < 2.5) {
-				pageSetupTabRedirect()
-				alert(`Please enter Page Height value greater than 2.5" in Paper size`);
-				return;
-			}
-			if (height > 60 || width > 60) {
-				pageSetupTabRedirect()
-				alert(`Please enter a number no greater than 60" in Paper size`);
-				return;
-			}
-			result.size = {
-				"type": "custom",
-				"value": {
-					"height": `${height}`,
-					"width": `${width}`,
+			// Scale
+			let scaleVal = $(`#scale-${wid}-${tid}`).val();
+			if (scaleVal == "custom") {
+				let percentageVal = Math.round($(`#percentage-${wid}-${tid}`).val());
+				if (Number(percentageVal) < 1 || percentageVal.length === 0) {
+					pageSetupTabRedirect();
+					alert("Please enter a positive Percentage value ");
+					return;
+				}
+				result.scale = {
+					"type": "custom",
+					"value": {
+						"percentage": `${percentageVal/100}`,
+					}
+				}
+			} else if (scaleVal == "fit_pagebreak") {
+				let row = $(`#break-row-${wid}-${tid}`).val();
+				let col = $(`#break-column-${wid}-${tid}`).val();
+				if (col > 18278) {
+					pageSetupTabRedirect();
+					alert("Please enter a value less then 18278");
+					return;
+				}
+				result.scale = {
+					"type": "fit_pagebreak",
+					"value": {
+						"row": Number(`${row}`),
+						"column": Number(`${col}`)
+					}
+				}
+			} else {
+				result.scale = {
+					"type": `${scaleVal}`
 				}
 			}
-		} else {
-			width = $(`#size-${wid}-${tid}`).find(':selected').attr('data-width');
-			height = $(`#size-${wid}-${tid}`).find(':selected').attr('data-height');
-			result.size = {
-				"type": `${paperSizeVal}`
-			}
-		}
-		// Scale
-		let scaleVal = $(`#scale-${wid}-${tid}`).val();
-		if (scaleVal == "custom") {
-			let percentageVal = Math.round($(`#percentage-${wid}-${tid}`).val());
-			if (Number(percentageVal) < 1 || percentageVal.length === 0) {
-				pageSetupTabRedirect();
-				alert("Please enter a positive Percentage value ");
-				return;
-			}
-			result.scale = {
-				"type": "custom",
-				"value": {
-					"percentage": `${percentageVal/100}`,
+			// Margins
+			let marginsVal = $(`#margins-${wid}-${tid}`).val();
+			if (marginsVal == "custom") {
+				let top = $(`#margins-top-${wid}-${tid}`).val();
+				let left = $(`#margins-left-${wid}-${tid}`).val();
+				let right = $(`#margins-right-${wid}-${tid}`).val();
+				let bottom = $(`#margins-bottom-${wid}-${tid}`).val();
+				if (top.trim().length === 0 || left.trim().length === 0 || right.trim().length === 0 || bottom.trim().length === 0) {
+					pageSetupTabRedirect();
+					alert("Margins Top, Left, Right and Bottom value should not be empty in Page setup tab");
+					return;
+				}
+				if (top > (height - 1) || bottom > (height - 1)) {
+					alert(`The maximum value of the Top/Bottom Margin for the specified paper size is ${height - 1}`)
+					return;
+				}
+				if (left > (width - 1) || right > (width - 1)) {
+					alert(`The maximum value of the Left/Right Margin for the specified paper size is ${width - 1}`)
+					return;
+				}
+				let maxTopValue = (height - 1) - bottom;
+				let maxBottomValue = (height - 1) - top;
+				let maxLeftValue = (width - 1) - right;
+				let maxRightValue = (width - 1) - left;
+				if (top >= bottom && (top < 0 || top > maxTopValue)) {
+					pageSetupTabRedirect();
+					alert(`Enter the Top margin number between 0 and ${maxTopValue}`);
+					return;
+				}
+				if (left >= right && (left < 0 || left > maxLeftValue)) {
+					pageSetupTabRedirect();
+					alert(`Enter the Left margin number between 0 and ${maxLeftValue}`);
+					return;
+				}
+				if (right >= left && (right < 0 || right > maxRightValue)) {
+					pageSetupTabRedirect();
+					alert(`Enter the Right margin number between 0 and ${maxRightValue}`);
+					return;
+				}
+				if (bottom >= top && (bottom < 0 || bottom > maxBottomValue)) {
+					pageSetupTabRedirect();
+					alert(`Enter the Bottom margin number between 0 and ${maxBottomValue}`);
+					return;
+				}
+				result.margins = {
+					"type": "custom",
+					"value": {
+						"top": Number(`${top}`),
+						"left": Number(`${left}`),
+						"right": Number(`${right}`),
+						"bottom": Number(`${bottom}`),
+					}
+				}
+			} else {
+				result.margins = {
+					"type": `${marginsVal}`
 				}
 			}
-		} else if (scaleVal == "fit_pagebreak") {
-			let row = $(`#break-row-${wid}-${tid}`).val();
-			let col = $(`#break-column-${wid}-${tid}`).val();
-			if (col > 18278) {
-				pageSetupTabRedirect();
-				alert("Please enter a value less then 18278");
-				return;
+			// Page Orietation
+			let selectedRadioValue = $("input[name='pageSetupRadio']:checked").val();
+			result.orientation = {
+				"type": `${selectedRadioValue}`
 			}
-			result.scale = {
-				"type": "fit_pagebreak",
-				"value": {
-					"row": Number(`${row}`),
-					"column": Number(`${col}`)
-				}
+			// Format tab
+			// gridlines
+			result.gridlines = {
+				"value": $(`#showgridlines-${wid}-${tid}`).is(":checked")
 			}
-		} else {
-			result.scale = {
-				"type": `${scaleVal}`
+			// notes
+			result.notes = {
+				"value": $(`#shownotes-${wid}-${tid}`).is(":checked")
 			}
-		}
-		// Margins
-		let marginsVal = $(`#margins-${wid}-${tid}`).val();
-		if (marginsVal == "custom") {
-			let top = $(`#margins-top-${wid}-${tid}`).val();
-			let left = $(`#margins-left-${wid}-${tid}`).val();
-			let right = $(`#margins-right-${wid}-${tid}`).val();
-			let bottom = $(`#margins-bottom-${wid}-${tid}`).val();
-			if (top.trim().length === 0 || left.trim().length === 0 || right.trim().length === 0 || bottom.trim().length === 0) {
-				pageSetupTabRedirect();
-				alert("Margins Top, Left, Right and Bottom value should not be empty in Page setup tab");
-				return;
+			// Pageorder
+			let pageOrderVal = $(`#pageorder-${wid}-${tid}`).val();
+			result.pageorder = {
+				"value": `${pageOrderVal}`
 			}
-			if (top > (height - 1) || bottom > (height - 1)) {
-				alert(`The maximum value of the Top/Bottom Margin for the specified paper size is ${height - 1}`)
-				return;
+			// Alignment
+			result.h_alignment = {
+				"value": $(`#horizontal-alignment-${wid}-${tid}`).val()
 			}
-			if (left > (width - 1) || right > (width - 1)) {
-				alert(`The maximum value of the Left/Right Margin for the specified paper size is ${width - 1}`)
-				return;
+			result.v_alignment = {
+				"value": $(`#vertical-alignment-${wid}-${tid}`).val()
 			}
-			let maxTopValue = (height - 1) - bottom;
-			let maxBottomValue = (height - 1) - top;
-			let maxLeftValue = (width - 1) - right;
-			let maxRightValue = (width - 1) - left;
-			if (top >= bottom && (top < 0 || top > maxTopValue)) {
-				pageSetupTabRedirect();
-				alert(`Enter the Top margin number between 0 and ${maxTopValue}`);
-				return;
-			}
-			if (left >= right && (left < 0 || left > maxLeftValue)) {
-				pageSetupTabRedirect();
-				alert(`Enter the Left margin number between 0 and ${maxLeftValue}`);
-				return;
-			}
-			if (right >= left && (right < 0 || right > maxRightValue)) {
-				pageSetupTabRedirect();
-				alert(`Enter the Right margin number between 0 and ${maxRightValue}`);
-				return;
-			}
-			if (bottom >= top && (bottom < 0 || bottom > maxBottomValue)) {
-				pageSetupTabRedirect();
-				alert(`Enter the Bottom margin number between 0 and ${maxBottomValue}`);
-				return;
-			}
-			result.margins = {
+			// Headers & Footer
+			result.hf = {
+				"options": {
+					"hf_fzr": $(`#frozen-rows-${wid}-${tid}`).is(":checked"),
+					"hf_fzc": $(`#frozen-columns-${wid}-${tid}`).is(":checked")
+				},
 				"type": "custom",
 				"value": {
-					"top": Number(`${top}`),
-					"left": Number(`${left}`),
-					"right": Number(`${right}`),
-					"bottom": Number(`${bottom}`),
+					"top_left": $(`#top-left-${wid}-${tid}`).val(),
+					"top_center": $(`#top-middle-${wid}-${tid}`).val(),
+					"top_right": $(`#top-right-${wid}-${tid}`).val(),
+					"bottom_left": $(`#bottom-left-${wid}-${tid}`).val(),
+					"bottom_center": $(`#bottom-middle-${wid}-${tid}`).val(),
+					"bottom_right": $(`#bottom-right-${wid}-${tid}`).val(),
 				}
 			}
-		} else {
-			result.margins = {
-				"type": `${marginsVal}`
-			}
+			return result;
 		}
-		// Page Orietation
-		let selectedRadioValue = $("input[name='pageSetupRadio']:checked").val();
-		result.orientation = {
-			"type": `${selectedRadioValue}`
-		}
-		// Format tab
-		// gridlines
-		result.gridlines = {
-			"value": $(`#showgridlines-${wid}-${tid}`).is(":checked")
-		}
-		// notes
-		result.notes = {
-			"value": $(`#shownotes-${wid}-${tid}`).is(":checked")
-		}
-		// Pageorder
-		let pageOrderVal = $(`#pageorder-${wid}-${tid}`).val();
-		result.pageorder = {
-			"value": `${pageOrderVal}`
-		}
-		// Alignment
-		result.h_alignment = {
-			"value": $(`#horizontal-alignment-${wid}-${tid}`).val()
-		}
-		result.v_alignment = {
-			"value": $(`#vertical-alignment-${wid}-${tid}`).val()
-		}
-		// Headers & Footer
-		result.hf = {
-			"options": {
-				"hf_fzr": $(`#frozen-rows-${wid}-${tid}`).is(":checked"),
-				"hf_fzc": $(`#frozen-columns-${wid}-${tid}`).is(":checked")
-			},
-			"type": "custom",
-			"value": {
-				"top_left": $(`#top-left-${wid}-${tid}`).val(),
-				"top_center": $(`#top-middle-${wid}-${tid}`).val(),
-				"top_right": $(`#top-right-${wid}-${tid}`).val(),
-				"bottom_left": $(`#bottom-left-${wid}-${tid}`).val(),
-				"bottom_center": $(`#bottom-middle-${wid}-${tid}`).val(),
-				"bottom_right": $(`#bottom-right-${wid}-${tid}`).val(),
-			}
-		}
-		return result;
-	}
-	// Dynamic columnName
-	function toColumnName(d) {
-		for (var a = "", b = 1, c = 26; 0 <= (d -= b); b = c, c *= 26) a = String.fromCharCode(parseInt(d % c / b) + 65) + a;
-		return a
-	};
+		// Dynamic columnName
+		function toColumnName(d) {
+			for (var a = "", b = 1, c = 26; 0 <= (d -= b); b = c, c *= 26) a = String.fromCharCode(parseInt(d % c / b) + 65) + a;
+			return a
+		};
 
-	function createTask_Email(wid, task) {
-		var tid = task?.id ? task.id : Math.random().toString(36).substr(2, 8);
-		var html_task = getAddTaskEnvelope(wid, tid, "email", `<div class="ms-5 ps-3">
+		function createTask_Email(wid, task) {
+			var tid = task?.id ? task.id : Math.random().toString(36).substr(2, 8);
+			var html_task = getAddTaskEnvelope(wid, tid, "email", `<div class="ms-5 ps-3">
 	<span class="task-title">Email: ${wid}-${tid} </span><br>
 	<span class="text-secondary small">Last updated </span><span class="time text-secondary small" data-time="1667889127596">15 days ago</span>
 </div>
@@ -334,13 +437,13 @@
 							<table border="0" width="100%" style="table-layout:fixed;">
 								<tbody>
 									<tr>
-										<td colspan="2">
+										<td colspan="3">
 											<span class="pb-2 fw-bolder">Email Service</span><br>
 											<span class="text-secondary">You may choose to send emails through Gmail, SparkPost, SendGrid or Amazon SES</span><br>
 										</td>
 									</tr>
 									<tr>
-										<td class="p-3">
+										<td class="p-3" colspan="2">
 											<label for="service-provider-${wid}-${tid}" class="form-label">Service Provider</label>
 											<select class="form-select" id="service-provider-${wid}-${tid}">
 												<option selected value="">Choose your email service provider...</option>
@@ -388,21 +491,15 @@
 										</td>
 									</tr>
 									<tr class="sendgrid-row-${wid}-${tid}">
-										<td class="p-3">
+										<td colspan="2" class="p-3">
 											<label for="sendgrid-api-${wid}-${tid}" class="form-label">SendGrid API Key</label>
 											<input type="text" class="form-control" id="sendgrid-api-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="sparkpost-row-${wid}-${tid}">
-										<td class="p-3">
+										<td colspan="2" class="p-3">
 											<label for="sparkpost-api-${wid}-${tid}" class="form-label">SparkPost API Key</label>
 											<input type="text" class="form-control" id="sparkpost-api-${wid}-${tid}" />
-										</td>
-									</tr>
-									<tr class="gmail-row-${wid}-${tid}">
-										<td colspan="2">
-											<span class="pb-2 fw-bolder">The Sender</span><br>
-											<span class="text-secondary">Specify the name and email alias that is shown as the sender in the email.</span><br>
 										</td>
 									</tr>
 									<tr class="gmail-row-${wid}-${tid}">
@@ -428,23 +525,23 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2">
-											<span class="pb-2 fw-bolder">The Recipients</span><br>
-											<span class="text-secondary">Specify one or more email addresses that your notifications are sent to.</span><br>
+										<td colspan="3">
+											<span class="pb-2 fw-bolder">Recipients</span><br>
+											<span class="text-secondary">Specify one or more email addresses separated by comma that your emails should be sent to</span><br>
 										</td>
 									</tr>
 									<tr>
 										<td class="p-3">
-											<label for="to-recipients-${wid}-${tid}" class="form-label">TO Recipients</label>
+											<label for="to-recipients-${wid}-${tid}" class="form-label">To</label>
 											<input type="text" class="form-control" id="to-recipients-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="cc-recipients-${wid}-${tid}" class="form-label">CC Recipients</label>
-											<input type="text" class="form-control" id="cc-recipients-${wid}-${tid}" />
+											<label for="cc-${wid}-${tid}" class="form-label">CC</label>
+											<input type="text" class="form-control" id="cc-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="bcc-recipients-${wid}-${tid}" class="form-label">BCC Recipients</label>
-											<input type="text" class="form-control" id="bcc-recipients-${wid}-${tid}" />
+											<label for="bcc-${wid}-${tid}" class="form-label">BCC</label>
+											<input type="text" class="form-control" id="bcc-${wid}-${tid}" />
 										</td>
 									</tr>
 								</tbody>
@@ -455,11 +552,11 @@
 										<td class="p-3">
 											<label for="send-email-${wid}-${tid}" class="form-label">Send Email to:</label>
 											<select class="form-select" id="send-email-${wid}-${tid}">
-												<option selected>Choose Form Question</option>
+												<option selected>Select Form Question</option>
 											</select>
 										</td>
 										<td class="p-3">
-											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email Address</label>
+											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email</label>
 											<select class="form-select" id="reply-email-${wid}-${tid}">
 												<option selected>somethinggooddone@gmail.com</option>
 											</select>
@@ -479,18 +576,18 @@
 							<table border="0" width="100%" style="table-layout:fixed;">
 								<tbody>
 									<tr>
-										<td colspan="2">
-											<span class="pb-2 fw-bolder">The Message</span><br>
-											<span class="text-secondary">Specify the subject line and body of your message. Use Scriptslets for conditional text in email templates.</span><br>
+										<td colspan="3">
+											<span class="pb-2 fw-bolder">Subject & Message</span><br>
+											<span class="text-secondary">Specify the subject line and body of your message. Use markers for personalized subject and body</span>
 										</td>
 									</tr>
 									<tr>
 										<td class="p-3" colspan="2">
-											<label for="email-subject-${wid}-${tid}" class="form-label">Email Subject</label>
+											<label for="email-subject-${wid}-${tid}" class="form-label">Subject</label>
 											<input type="text" class="form-control" id="email-subject-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="editor-type-${wid}-${tid}" class="form-label">Editor Type</label>
+											<label for="editor-type-${wid}-${tid}" class="form-label">Editor type</label>
 											<select class="form-select" id="editor-type-${wid}-${tid}">
 												<option selected value="wysiwyg">WYSIWYG</option>
 												<option value="html">HTML</option>
@@ -570,328 +667,332 @@
 		</div>
 	</div>
 </div>`);
-		$(`#tasks-point-${wid}`).append(html_task);
-		if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
+			$(`#tasks-point-${wid}`).append(html_task);
+			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 
-		// Hide all the row initially
-		$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
+			// Hide all the row initially
+			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
 
-		$(`#editor-type-${wid}-${tid}`).on("change", function() {
-			var value = $(this).children('option:selected').val();
-			if(value === "wysiwyg"){
-				$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
-				$(`.email-body-section-${wid}-${tid}`).show();
-			} else if(value === "html"){
-				$(`.email-bodyhtml-section-${wid}-${tid}`).show();
-				$(`.email-body-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
-			} else{
-				$(`.google-docs-section-${wid}-${tid}`).show();
-				$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
-			}
-		})
+			$(`#editor-type-${wid}-${tid}`).on("change", function() {
+				var value = $(this).children('option:selected').val();
+				if (value === "wysiwyg") {
+					$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
+					$(`.email-body-section-${wid}-${tid}`).show();
+				} else if (value === "html") {
+					$(`.email-bodyhtml-section-${wid}-${tid}`).show();
+					$(`.email-body-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
+				} else {
+					$(`.google-docs-section-${wid}-${tid}`).show();
+					$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
+				}
+			})
 
-		$(`#service-provider-${wid}-${tid}`).on("change", function() {
-			var value = $(this).children('option:selected').val();
-			if(value === "gmail"){
-				$(`.gmail-row-${wid}-${tid}`).show();
-				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}`).hide();
-			} else if(value === "amazon"){
-				$(`.aws-row-${wid}-${tid}`).show();
-				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
-			} else if(value === "sendgrid"){
-				$(`.sendgrid-row-${wid}-${tid}`).show();
-				$(`.sparkpost-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
-			} else if(value === "sparkpost"){
-				$(`.sparkpost-row-${wid}-${tid}`).show();
-				$(`.sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
-			} else{
-				$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
-			}
-		})
-		
-		$(`.restore-${wid}-${tid}`).on('click', function(e) {
-			console.log("Restore called")
-			if (!task) return;
-			var pj = task;
-			// Page Setup
-			// Print
-			if (pj.print.type === "workbook") {
-				$(`#print-${wid}-${tid}`).val(pj.print.type).trigger("change");
-				
-				$(`.selection-${wid}-${tid} :checkbox`).prop('checked', false); //deselect all
-				$(`.selection-${wid}-${tid} :checkbox`).each(function() {
-					pj.print.value.forEach((val) => {
-						if (val.sheet === $(this).val()) {
-							$(this).prop('checked', true).trigger("change");
-						}
-					})
-				}).trigger("change");
-			} else if (pj.print.type === "custom") {
-				if(pj.print.value[0].hasOwnProperty("range"))
+			$(`#service-provider-${wid}-${tid}`).on("change", function() {
+				var value = $(this).children('option:selected').val();
+				if (value === "gmail") {
+					$(`.gmail-row-${wid}-${tid}`).show();
+					$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}`).hide();
+				} else if (value === "amazon") {
+					$(`.aws-row-${wid}-${tid}`).show();
+					$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+				} else if (value === "sendgrid") {
+					$(`.sendgrid-row-${wid}-${tid}`).show();
+					$(`.sparkpost-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+				} else if (value === "sparkpost") {
+					$(`.sparkpost-row-${wid}-${tid}`).show();
+					$(`.sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+				} else {
+					$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
+				}
+			})
+
+			$(`.restore-${wid}-${tid}`).on('click', function(e) {
+				console.log("Restore called")
+				if (!task) return;
+				var pj = task;
+				// Page Setup
+				// Print
+				if (pj.print.type === "workbook") {
+					$(`#print-${wid}-${tid}`).val(pj.print.type).trigger("change");
+
+					$(`.selection-${wid}-${tid} :checkbox`).prop('checked', false); //deselect all
+					$(`.selection-${wid}-${tid} :checkbox`).each(function() {
+						pj.print.value.forEach((val) => {
+							if (val.sheet === $(this).val()) {
+								$(this).prop('checked', true).trigger("change");
+							}
+						})
+					}).trigger("change");
+				} else if (pj.print.type === "custom") {
+					if (pj.print.value[0].hasOwnProperty("range")) {
+						optionText = `Selected range of ${ pj.print.value[0].sheet}`;
+						$(`#print-range-${wid}-${tid}`).val(pj.print.value[0].range)
+					} else
+						optionText = `${ pj.print.value[0].sheet}`
+
+					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function() {
+						if ($(this).text() === optionText) return this;
+					}).attr('selected', true).trigger("change");
+				}
+
+				// Paper size
+				if (pj.size.type === "custom") {
+					$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
+					$(`#size-height-${wid}-${tid}`).val(pj.size.value.height);
+					$(`#size-width-${wid}-${tid}`).val(pj.size.value.width);
+				} else {
+					$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
+				}
+				// Margins
+				if (pj.margins.type === "custom") {
+					$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
+					$(`#margins-top-${wid}-${tid}`).val(pj.margins.value.top);
+					$(`#margins-left-${wid}-${tid}`).val(pj.margins.value.left);
+					$(`#margins-right-${wid}-${tid}`).val(pj.margins.value.right);
+					$(`#margins-bottom-${wid}-${tid}`).val(pj.margins.value.bottom);
+				} else {
+					$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
+				}
+				// Scale
+
+				if (pj.scale.type === "custom") {
+					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
+					$(`#percentage-${wid}-${tid}`).val(pj.scale.value.percentage * 100);
+				} else if (pj.scale.type == "fit_pagebreak") {
+
+					console.log("calling " + pj.scale.type);
+
+					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
+					$(`#break-row-${wid}-${tid}`).val(pj.scale.value.row)
+					$(`#break-column-${wid}-${tid}`).val(pj.scale.value.column).trigger("change");
+				} else {
+					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
+				}
+
+				// Set page orientation
+				$("input[name='pageSetupRadio']").val([`${pj.orientation.type}`])
+				// Formatting Tab
+				$(`#pageorder-${wid}-${tid}`).val(pj.pageorder.value).trigger("change");
+				$(`#horizontal-alignment-${wid}-${tid}`).val(pj.h_alignment.value).trigger("change");
+				$(`#vertical-alignment-${wid}-${tid}`).val(pj.v_alignment.value).trigger("change");
+				if (pj.notes.value === "true") {
+					$(`#shownotes-${wid}-${tid}`).prop('checked', true);
+				}
+				if (pj.gridlines.value === "true") {
+					$(`#showgridlines-${wid}-${tid}`).prop('checked', true);
+				}
+				// Headers and Footers tab
+				if (pj.hf.options.hf_fzr) {
+					$(`#frozen-rows-${wid}-${tid}`).prop('checked', true);
+				}
+				if (pj.hf.options.hf_fzc) {
+					$(`#frozen-columns-${wid}-${tid}`).prop('checked', true);
+				}
+				$(`#top-left-${wid}-${tid}`).val(pj.hf.value.top_left)
+				$(`#top-middle-${wid}-${tid}`).val(pj.hf.value.top_center)
+				$(`#top-right-${wid}-${tid}`).val(pj.hf.value.top_right)
+				$(`#bottom-left-${wid}-${tid}`).val(pj.hf.value.bottom_left)
+				$(`#bottom-middle-${wid}-${tid}`).val(pj.hf.value.bottom_center)
+				$(`#bottom-right-${wid}-${tid}`).val(pj.hf.value.bottom_right)
+			}).trigger("click");
+
+			$(`.done-${wid}-${tid}`).on('click', function(e) {
+				e.preventDefault()
+				e.stopPropagation()
+				console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
+				// if (getEmailValues(wid, tid)) {
+				// $(`#task-modal-${wid}-${tid}`).modal('hide');
+				// }
+			})
+
+			var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', {
+					'list': 'ordered'
+				}, {
+					'list': 'bullet'
+				},
 				{
-					optionText = `Selected range of ${ pj.print.value[0].sheet}`;
-					$(`#print-range-${wid}-${tid}`).val(pj.print.value[0].range)
+					size: ['small', false, 'large', 'huge']
+				}, {
+					'align': []
+				}, {
+					'direction': 'rtl'
+				}, 'clean'
+			]
+
+			$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
+			var quill = new Quill(`#editor-${wid}-${tid}`, {
+				theme: 'snow',
+				placeholder: 'Use HTML tags and {{Column Title}} for composing personalized emails',
+				modules: {
+					toolbar: toolbarOptions
 				}
-				else
-					optionText = `${ pj.print.value[0].sheet}`
-
-				$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function() {
-					if ($(this).text() === optionText) return this;
-				}).attr('selected', true).trigger("change");
-			}
-
-			// Paper size
-			if (pj.size.type === "custom") {
-				$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
-				$(`#size-height-${wid}-${tid}`).val(pj.size.value.height);
-				$(`#size-width-${wid}-${tid}`).val(pj.size.value.width);
-			} else {
-				$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
-			}
-			// Margins
-			if (pj.margins.type === "custom") {
-				$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
-				$(`#margins-top-${wid}-${tid}`).val(pj.margins.value.top);
-				$(`#margins-left-${wid}-${tid}`).val(pj.margins.value.left);
-				$(`#margins-right-${wid}-${tid}`).val(pj.margins.value.right);
-				$(`#margins-bottom-${wid}-${tid}`).val(pj.margins.value.bottom);
-			} else {
-				$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
-			}
-			// Scale
-			
-			
-			if (pj.scale.type === "custom") {
-				$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-				$(`#percentage-${wid}-${tid}`).val(pj.scale.value.percentage * 100);
-			} else if (pj.scale.type == "fit_pagebreak") {
-			
-			console.log("calling " + pj.scale.type);
-			
-				$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-				$(`#break-row-${wid}-${tid}`).val(pj.scale.value.row)
-				$(`#break-column-${wid}-${tid}`).val(pj.scale.value.column).trigger("change");
-			} else {
-				$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-			}
-			
-			
-			// Set page orientation
-			$("input[name='pageSetupRadio']").val([`${pj.orientation.type}`])
-			// Formatting Tab
-			$(`#pageorder-${wid}-${tid}`).val(pj.pageorder.value).trigger("change");
-			$(`#horizontal-alignment-${wid}-${tid}`).val(pj.h_alignment.value).trigger("change");
-			$(`#vertical-alignment-${wid}-${tid}`).val(pj.v_alignment.value).trigger("change");
-			if (pj.notes.value === "true") {
-				$(`#shownotes-${wid}-${tid}`).prop('checked', true);
-			}
-			if (pj.gridlines.value === "true") {
-				$(`#showgridlines-${wid}-${tid}`).prop('checked', true);
-			}
-			// Headers and Footers tab
-			if (pj.hf.options.hf_fzr) {
-				$(`#frozen-rows-${wid}-${tid}`).prop('checked', true);
-			}
-			if (pj.hf.options.hf_fzc) {
-				$(`#frozen-columns-${wid}-${tid}`).prop('checked', true);
-			}
-			$(`#top-left-${wid}-${tid}`).val(pj.hf.value.top_left)
-			$(`#top-middle-${wid}-${tid}`).val(pj.hf.value.top_center)
-			$(`#top-right-${wid}-${tid}`).val(pj.hf.value.top_right)
-			$(`#bottom-left-${wid}-${tid}`).val(pj.hf.value.bottom_left)
-			$(`#bottom-middle-${wid}-${tid}`).val(pj.hf.value.bottom_center)
-			$(`#bottom-right-${wid}-${tid}`).val(pj.hf.value.bottom_right)
-		}).trigger("click");
-		
-		
-		$(`.done-${wid}-${tid}`).on('click', function(e) {
-			e.preventDefault()
-			e.stopPropagation()
-			console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
-			// if (getEmailValues(wid, tid)) {
-			// $(`#task-modal-${wid}-${tid}`).modal('hide');
-			// }
-		})
-
-		var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', { 'list': 'ordered'}, { 'list': 'bullet' }, 
-		{ size: [ 'small',false,'large','huge' ]}, { 'align': [] }, { 'direction': 'rtl' }, 'clean' ]
-
-		$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
-		var quill = new Quill(`#editor-${wid}-${tid}`, {
-			theme: 'snow',
-			placeholder: 'Enter email body here. You can also use HTML tags and {{Column Titles}} for personal emails.',
-			modules: {
-				toolbar: toolbarOptions 
-			}
-		});
-		var quill = new Quill(`#editor-html-${wid}-${tid}`, {
-			theme: 'snow',
-			modules: {
-				toolbar: false 
-			}
-		});
-
-	}
-	// Delete Instance
-	$(`.tdelete`).on('click', function(e) {
-		$(this).parent().parent().parent().parent().remove();
-	})
-	$("#email").click(function(event) {
-		createTask_Email("l9zgqjql")
-	});
-	$("#restoreall").click(function(event) {
-		$("#tasks-point-l9zgqjql").html('')
-		var wflw = {
-			id: "l9zgqjql",
-			tasks: [{
-				"taskType": "email",
-				"id": "y9f514dg",
-				"name": "l9zgqjql-y9f514dg",
-				"print": {
-					"type": "custom",
-					"value": [{
-						"sheet": "Sheet1",
-						"range": "A2:A"
-					}]
-				},
-				"size": {
-					"type": "letter"
-				},
-				"scale": {
-					"type": "custom",
-					"value": {
-						"percentage": "0.78"
-					}
-				},
-				"margins": {
-					"type": "normal"
-				},
-				"orientation": {
-					"type": "landscape"
-				},
-				"gridlines": {
-					"value": true
-				},
-				"notes": {
-					"value": true
-				},
-				"pageorder": {
-					"value": "down_then_over"
-				},
-				"h_alignment": {
-					"value": "horizontal_left"
-				},
-				"v_alignment": {
-					"value": "vertical_center"
-				},
-				"hf": {
-					"options": {
-						"hf_fzr": true,
-						"hf_fzc": true
-					},
-					"type": "custom",
-					"value": {
-						"top_left": "Top Left",
-						"top_center": "Top Middle",
-						"top_right": "Top Right",
-						"bottom_left": "Bottom Left",
-						"bottom_center": "Bottom Middle",
-						"bottom_right": "Bottom Right"
-					}
+			});
+			var quill = new Quill(`#editor-html-${wid}-${tid}`, {
+				theme: 'snow',
+				modules: {
+					toolbar: false
 				}
-			}, {
-				"taskType": "email",
-				"id": "j2f514dg",
-				"name": "l9zgqjql-j2f514dg",
-				"print": {
-					"type": "workbook",
-					"value": [{
-						"sheet": "Sheet2"
-					}]
-				},
-				"size": {
-					"type": "custom",
-					"value": {
-						"height": "20",
-						"width": "20"
-					}
-				},
-				"scale": {
-					"type": "fit_pagebreak",
-					"value": {
-						"row": "29",
-						"column": "7"
-					}
-				},
-				"margins": {
-					"type": "custom",
-					"value": {
-						"top": "1",
-						"left": "1",
-						"right": "1",
-						"bottom": "1"
-					}
-				},
-				"orientation": {
-					"type": "protait"
-				},
-				"gridlines": {
-					"value": true
-				},
-				"notes": {
-					"value": true
-				},
-				"pageorder": {
-					"value": "down_then_over"
-				},
-				"h_alignment": {
-					"value": "horizontal_left"
-				},
-				"v_alignment": {
-					"value": "vertical_center"
-				},
-				"hf": {
-					"options": {
-						"hf_fzr": true,
-						"hf_fzc": true
-					},
-					"type": "custom",
-					"value": {
-						"top_left": "Top Left",
-						"top_center": "Top Middle",
-						"top_right": "Top Right",
-						"bottom_left": "Bottom Left",
-						"bottom_center": "Bottom Middle",
-						"bottom_right": "Bottom Right"
-					}
-				}
-			}]
+			});
+
 		}
-		wflw.tasks.forEach(t => {
-			if (t.taskType == "email") {
-				createTask_Email(wflw.id, t)
-			}
+		// Delete Instance
+		$(`.tdelete`).on('click', function(e) {
+			$(this).parent().parent().parent().parent().remove();
 		})
-	});
-	$(`#sendall`).click(function(e) {
-		r = [];
-		error = false;
-		$(`#tasks-point-l9zgqjql`).children().each(function() {
-			if ($(this).data("type") == "email") {
-				var ids = $(this).data("id").split("-");
-				var w = getEmailValues(ids[0], ids[1])
-				if (!w) {
-					$(`#task-modal-${$(this).data("id")}`).modal("show");
-					error = true;
-					return false;
-				} else r.push(w);
-			}
+		$("#email").click(function(event) {
+			createTask_Email("l9zgqjql")
 		});
-		if (!error) console.log(JSON.stringify(r, null, 4))
-	});
+		$("#restoreall").click(function(event) {
+			$("#tasks-point-l9zgqjql").html('')
+			var wflw = {
+				id: "l9zgqjql",
+				tasks: [{
+					"taskType": "email",
+					"id": "y9f514dg",
+					"name": "l9zgqjql-y9f514dg",
+					"print": {
+						"type": "custom",
+						"value": [{
+							"sheet": "Sheet1",
+							"range": "A2:A"
+						}]
+					},
+					"size": {
+						"type": "letter"
+					},
+					"scale": {
+						"type": "custom",
+						"value": {
+							"percentage": "0.78"
+						}
+					},
+					"margins": {
+						"type": "normal"
+					},
+					"orientation": {
+						"type": "landscape"
+					},
+					"gridlines": {
+						"value": true
+					},
+					"notes": {
+						"value": true
+					},
+					"pageorder": {
+						"value": "down_then_over"
+					},
+					"h_alignment": {
+						"value": "horizontal_left"
+					},
+					"v_alignment": {
+						"value": "vertical_center"
+					},
+					"hf": {
+						"options": {
+							"hf_fzr": true,
+							"hf_fzc": true
+						},
+						"type": "custom",
+						"value": {
+							"top_left": "Top Left",
+							"top_center": "Top Middle",
+							"top_right": "Top Right",
+							"bottom_left": "Bottom Left",
+							"bottom_center": "Bottom Middle",
+							"bottom_right": "Bottom Right"
+						}
+					}
+				}, {
+					"taskType": "email",
+					"id": "j2f514dg",
+					"name": "l9zgqjql-j2f514dg",
+					"print": {
+						"type": "workbook",
+						"value": [{
+							"sheet": "Sheet2"
+						}]
+					},
+					"size": {
+						"type": "custom",
+						"value": {
+							"height": "20",
+							"width": "20"
+						}
+					},
+					"scale": {
+						"type": "fit_pagebreak",
+						"value": {
+							"row": "29",
+							"column": "7"
+						}
+					},
+					"margins": {
+						"type": "custom",
+						"value": {
+							"top": "1",
+							"left": "1",
+							"right": "1",
+							"bottom": "1"
+						}
+					},
+					"orientation": {
+						"type": "protait"
+					},
+					"gridlines": {
+						"value": true
+					},
+					"notes": {
+						"value": true
+					},
+					"pageorder": {
+						"value": "down_then_over"
+					},
+					"h_alignment": {
+						"value": "horizontal_left"
+					},
+					"v_alignment": {
+						"value": "vertical_center"
+					},
+					"hf": {
+						"options": {
+							"hf_fzr": true,
+							"hf_fzc": true
+						},
+						"type": "custom",
+						"value": {
+							"top_left": "Top Left",
+							"top_center": "Top Middle",
+							"top_right": "Top Right",
+							"bottom_left": "Bottom Left",
+							"bottom_center": "Bottom Middle",
+							"bottom_right": "Bottom Right"
+						}
+					}
+				}]
+			}
+			wflw.tasks.forEach(t => {
+				if (t.taskType == "email") {
+					createTask_Email(wflw.id, t)
+				}
+			})
+		});
+		$(`#sendall`).click(function(e) {
+			r = [];
+			error = false;
+			$(`#tasks-point-l9zgqjql`).children().each(function() {
+				if ($(this).data("type") == "email") {
+					var ids = $(this).data("id").split("-");
+					var w = getEmailValues(ids[0], ids[1])
+					if (!w) {
+						$(`#task-modal-${$(this).data("id")}`).modal("show");
+						error = true;
+						return false;
+					} else r.push(w);
+				}
+			});
+			if (!error) console.log(JSON.stringify(r, null, 4))
+		});
 	</script>
 </body>
 
 </html>
-
-
