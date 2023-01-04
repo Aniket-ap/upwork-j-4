@@ -599,7 +599,7 @@
 									</tr>
 									<tr class="google-docs-section-${wid}-${tid}">
 										<td class="p-3" colspan="2">
-											<input id="template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
+											<input id="email_template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
 											<label for="button_email_template_name-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
 												<a class="hide openlink" href=""><i class="initial material-symbols-outlined icon-text-primary align-middle">open_in_new</i></a>
 											</label>
@@ -746,8 +746,9 @@
 				$(`#editor_type-${wid}-${tid}`).val(pj.editorType).trigger("change");
 				
 				// DOCS
-				$(`email_template_id-${wid}-${tid}`).val(pj.emailTemplateId);
-				$(`email_template_name-${wid}-${tid}`).val(pj.emailTemplateName);
+				$(`#email_template_id-${wid}-${tid}`).val(pj.emailTemplateId);
+				$(`#email_template_name-${wid}-${tid}`).val(pj.emailTemplateName);
+				$(`#email_template_mime-${wid}-${tid}`).val(pj.emailTemplateMime);
 
 				if(pj.attachMergedFiles) {
 					$(`#attach_merged_files-${wid}-${tid}`).prop('checked', true);
