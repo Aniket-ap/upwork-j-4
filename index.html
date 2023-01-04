@@ -456,8 +456,8 @@
 									</tr>
 									<tr>
 										<td class="p-3" colspan="3">
-											<label for="service-provider-${wid}-${tid}" class="form-label">Service Provider</label>
-											<select class="form-select" id="service-provider-${wid}-${tid}">
+											<label for="service_name-${wid}-${tid}" class="form-label">Service Provider</label>
+											<select class="form-select" id="service_name-${wid}-${tid}">
 												<option value="gmail">Gmail</option>
 												<option value="amazon">Amazon SES</option>
 												<option value="sendgrid">SendGrid</option>
@@ -467,8 +467,8 @@
 									</tr>
 									<tr class="aws-row-${wid}-${tid}">
 										<td class="p-3">
-											<label for="aws-region-${wid}-${tid}" class="form-label">AWS Region</label>
-											<select class="form-select" id="aws-region-${wid}{tid}">
+											<label for="ses_region-${wid}-${tid}" class="form-label">AWS Region</label>
+											<select class="form-select" id="ses_region-${wid}{tid}">
 												<option value="">Choose AWS Region...</option>
 												<option value="us-east-2">US East (Ohio)</option>
 												<option value="us-east-1">US East (N. Virginia)</option>
@@ -493,34 +493,34 @@
 											</select>
 										</td>
 										<td class="p-3">
-											<label for="ses-key-${wid}-${tid}" class="form-label">SES Key id</label>
-											<input type="text" class="form-control" id="ses-key-${wid}-${tid}" />
+											<label for="ses_key_id-${wid}-${tid}" class="form-label">SES Key id</label>
+											<input type="text" class="form-control" id="ses_key_id-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="ses-secret-${wid}-${tid}" class="form-label">SES Secret</label>
-											<input type="text" class="form-control" id="ses-secret-${wid}-${tid}" />
+											<label for="ses_secret-${wid}-${tid}" class="form-label">SES Secret</label>
+											<input type="text" class="form-control" id="ses_secret-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="sendgrid-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
-											<label for="sendgrid-api-${wid}-${tid}" class="form-label">SendGrid API Key</label>
-											<input type="text" class="form-control" id="sendgrid-api-${wid}-${tid}" />
+											<label for="send_grid_key-${wid}-${tid}" class="form-label">SendGrid API Key</label>
+											<input type="text" class="form-control" id="send_grid_key-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="sparkpost-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
-											<label for="sparkpost-api-${wid}-${tid}" class="form-label">SparkPost API Key</label>
-											<input type="text" class="form-control" id="sparkpost-api-${wid}-${tid}" />
+											<label for="spark_post_key-${wid}-${tid}" class="form-label">SparkPost API Key</label>
+											<input type="text" class="form-control" id="spark_post_key-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="gmail-row-${wid}-${tid}">
 										<td colspan="2" class="p-3">
-											<label for="sender-name-${wid}-${tid}" class="form-label">Sender Name</label>
-											<input type="text" class="form-control" id="sender-name-${wid}-${tid}" />
+											<label for="sender_name-${wid}-${tid}" class="form-label">Sender Name</label>
+											<input type="text" class="form-control" id="sender_name-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="sender-email-${wid}-${tid}" class="form-label">Sender Email</label>
-											<select class="form-select" id="sender-email-${wid}-${tid}">
+											<label for="sender_email-${wid}-${tid}" class="form-label">Sender Email</label>
+											<select class="form-select" id="sender_email-${wid}-${tid}">
 											</select>
 										</td>
 									</tr>
@@ -537,8 +537,8 @@
 									</tr>
 									<tr>
 										<td class="p-3">
-											<label for="to-recipients-${wid}-${tid}" class="form-label">To</label>
-											<input type="text" class="form-control" id="to-recipients-${wid}-${tid}" />
+											<label for="to-${wid}-${tid}" class="form-label">To</label>
+											<input type="text" class="form-control" id="to-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
 											<label for="cc-${wid}-${tid}" class="form-label">CC</label>
@@ -551,8 +551,8 @@
 									</tr>
 									<tr>
 										<td colspan="2" class="p-3">
-											<label for="reply-email-${wid}-${tid}" class="form-label">Reply-to Email</label>
-											<select class="form-select" id="reply-email-${wid}-${tid}">
+											<label for="reply_to-${wid}-${tid}" class="form-label">Reply-to Email</label>
+											<select class="form-select" id="reply_to-${wid}-${tid}">
 											</select>
 										</td>
 									</tr>
@@ -569,12 +569,12 @@
 									</tr>
 									<tr>
 										<td class="p-3" colspan="2">
-											<label for="email-subject-${wid}-${tid}" class="form-label">Subject</label>
-											<input type="text" class="form-control" id="email-subject-${wid}-${tid}" />
+											<label for="subject-${wid}-${tid}" class="form-label">Subject</label>
+											<input type="text" class="form-control" id="subject-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="editor-type-${wid}-${tid}" class="form-label">Editor type</label>
-											<select class="form-select" id="editor-type-${wid}-${tid}">
+											<label for="editor_type-${wid}-${tid}" class="form-label">Editor type</label>
+											<select class="form-select" id="editor_type-${wid}-${tid}">
 												<option selected value="wysiwyg">WYSIWYG</option>
 												<option value="html">HTML</option>
 												<option value="docs">Google Docs</option>
@@ -605,7 +605,7 @@
 											</label>
 											<div class="input-group">
 												<input id="email_template_name-${wid}-${tid}" type="text" class="form-control" aria-label="Choose Docs Template">
-												<input id="template_id-${wid}-${tid}" type="hidden" value="xxxxxxxxxxxxxxxxxx" />
+												<input id="email_template_id-${wid}-${tid}" type="hidden" value="xxxxxxxxxxxxxxxxxx" />
 												<button class="btn btn-outline-primary" type="button" id="button_email_template_name-${wid}-${tid}">
 												<span class="initial align-middle align-middle material-symbols-outlined">folder_open</span>&nbsp;<span class="btn-text">Choose</span></button>
 											</div>
@@ -625,14 +625,14 @@
 									<tr>
 										<td colspan="3" class="p-3">
 											<div class="form-check">
-												<input class="form-check-input" type="checkbox" value="" id="attach-all-merged-${wid}-${tid}" checked>
-												<label class="fw-normal" for="attach-all-merged-${wid}-${tid}">
+												<input class="form-check-input" type="checkbox" value="" id="attach_merged_files-${wid}-${tid}" checked>
+												<label class="fw-normal" for="attach_merged_files-${wid}-${tid}">
 													Attach all merged files generated in this workflow
 												</label>
 											</div>
 											<div class="form-check">
-												<input class="form-check-input" type="checkbox" value="" id="attach-google-form-${wid}-${tid}" >
-												<label class="fw-normal" for="attach-google-form-${wid}-${tid}">
+												<input class="form-check-input" type="checkbox" value="" id="attach_form_uploads-${wid}-${tid}" >
+												<label class="fw-normal" for="attach_form_uploads-${wid}-${tid}">
 													Attach Google Form uploaded Files (if any)
 												</label>
 											</div>	
@@ -661,7 +661,7 @@
 				email: "example@gmail.com"
 			}]
 			SENDERS_EMAILS.forEach((data, index) => {
-				$(`#sender-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+				$(`#sender_email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
 			})
 
 			var REPLY_TO_EMAILS = [{
@@ -670,10 +670,10 @@
 				email: "example@gmail.com"
 			}]
 			REPLY_TO_EMAILS.forEach((data, index) => {
-				$(`#reply-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+				$(`#reply_to-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
 			})
 
-			$(`#editor-type-${wid}-${tid}`).on("change", function() {
+			$(`#editor_type-${wid}-${tid}`).on("change", function() {
 				var value = $(this).children('option:selected').val();
 				if (value === "wysiwyg") {
 					$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
@@ -686,7 +686,7 @@
 					$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
 				}
 			})
-			$(`#service-provider-${wid}-${tid}`).on("change", function() {
+			$(`#service_name-${wid}-${tid}`).on("change", function() {
 				var value = $(this).children('option:selected').val();
 				if (value === "gmail") {
 					$(`.gmail-row-${wid}-${tid}`).show();
@@ -708,6 +708,9 @@
 				console.log("Restore called")
 				if (!task) return;
 				var pj = task;
+
+
+
 				// Page Setup
 				// Print
 				if (pj.print.type === "workbook") {
