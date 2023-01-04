@@ -3,11 +3,8 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/somethinggoodone/cdn/AniketPradhan_bootstrap.css" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<style>
@@ -152,7 +149,8 @@
 		.icon32 {
 			width: 32px
 		}
-		.form-check{
+
+		.form-check {
 			margin-bottom: 0 !important;
 		}
 	</style>
@@ -169,7 +167,7 @@
 		function atoo(f, b) {
 			var c = [],
 				d = !1;
-			f.forEach(function (g, e) {
+			f.forEach(function(g, e) {
 				var a = {};
 				a.key = g;
 				a.value = 0 === b[e].length ? "" : b[e];
@@ -228,7 +226,7 @@
 					}
 				} else {
 					let arr = [];
-					$(`.selection-${wid}-${tid} :checkbox:checked`).each(function () {
+					$(`.selection-${wid}-${tid} :checkbox:checked`).each(function() {
 						arr.push({
 							"sheet": $(this).val()
 						});
@@ -602,12 +600,14 @@
 									<tr class="google-docs-section-${wid}-${tid}">
 										<td class="p-3" colspan="2">
 											<input id="template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
-											<label for="template_email_pick-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
+											<label for="button_email_template_name-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
 												<a class="hide openlink" href=""><i class="initial material-symbols-outlined icon-text-primary align-middle">open_in_new</i></a>
 											</label>
 											<div class="input-group">
-												<input id="template_name-${wid}-${tid}" type="text" class="form-control" aria-label="Choose Docs Template" readonly>
-												<button class="btn btn-outline-primary" type="button" id="template_email_pick-${wid}-${tid}"><span class="initial align-middle align-middle material-symbols-outlined">folder_open</span>&nbsp;<span class="btn-text">Choose</span></button>
+												<input id="email_template_name-${wid}-${tid}" type="text" class="form-control" aria-label="Choose Docs Template">
+												<input id="template_id-${wid}-${tid}" type="hidden" value="xxxxxxxxxxxxxxxxxx" />
+												<button class="btn btn-outline-primary" type="button" id="button_email_template_name-${wid}-${tid}">
+												<span class="initial align-middle align-middle material-symbols-outlined">folder_open</span>&nbsp;<span class="btn-text">Choose</span></button>
 											</div>
 										</td>
 									</tr>
@@ -654,18 +654,26 @@
 			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 			// Hide all the row initially
 			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
-			
-			var SENDERS_EMAILS = [{email:"somethinggoodone@gmail.com"},{email:"example@gmail.com"}]
+
+			var SENDERS_EMAILS = [{
+				email: "somethinggoodone@gmail.com"
+			}, {
+				email: "example@gmail.com"
+			}]
 			SENDERS_EMAILS.forEach((data, index) => {
 				$(`#sender-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
 			})
-			
-			var REPLY_TO_EMAILS = [{email:"somethinggoodone@gmail.com"},{email:"example@gmail.com"}]
+
+			var REPLY_TO_EMAILS = [{
+				email: "somethinggoodone@gmail.com"
+			}, {
+				email: "example@gmail.com"
+			}]
 			REPLY_TO_EMAILS.forEach((data, index) => {
 				$(`#reply-email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
 			})
 
-			$(`#editor-type-${wid}-${tid}`).on("change", function () {
+			$(`#editor-type-${wid}-${tid}`).on("change", function() {
 				var value = $(this).children('option:selected').val();
 				if (value === "wysiwyg") {
 					$(`.email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
@@ -678,7 +686,7 @@
 					$(`.email-body-section-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}`).hide();
 				}
 			})
-			$(`#service-provider-${wid}-${tid}`).on("change", function () {
+			$(`#service-provider-${wid}-${tid}`).on("change", function() {
 				var value = $(this).children('option:selected').val();
 				if (value === "gmail") {
 					$(`.gmail-row-${wid}-${tid}`).show();
@@ -696,7 +704,7 @@
 					$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}`).hide();
 				}
 			}).trigger("change")
-			$(`.restore-${wid}-${tid}`).on('click', function (e) {
+			$(`.restore-${wid}-${tid}`).on('click', function(e) {
 				console.log("Restore called")
 				if (!task) return;
 				var pj = task;
@@ -705,7 +713,7 @@
 				if (pj.print.type === "workbook") {
 					$(`#print-${wid}-${tid}`).val(pj.print.type).trigger("change");
 					$(`.selection-${wid}-${tid} :checkbox`).prop('checked', false); //deselect all
-					$(`.selection-${wid}-${tid} :checkbox`).each(function () {
+					$(`.selection-${wid}-${tid} :checkbox`).each(function() {
 						pj.print.value.forEach((val) => {
 							if (val.sheet === $(this).val()) {
 								$(this).prop('checked', true).trigger("change");
@@ -717,7 +725,7 @@
 						optionText = `Selected range of ${pj.print.value[0].sheet}`;
 						$(`#print-range-${wid}-${tid}`).val(pj.print.value[0].range)
 					} else optionText = `${pj.print.value[0].sheet}`
-					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function () {
+					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function() {
 						if ($(this).text() === optionText) return this;
 					}).attr('selected', true).trigger("change");
 				}
@@ -777,7 +785,7 @@
 				$(`#bottom-middle-${wid}-${tid}`).val(pj.hf.value.bottom_center)
 				$(`#bottom-right-${wid}-${tid}`).val(pj.hf.value.bottom_right)
 			}).trigger("click");
-			$(`.done-${wid}-${tid}`).on('click', function (e) {
+			$(`.done-${wid}-${tid}`).on('click', function(e) {
 				e.preventDefault()
 				e.stopPropagation()
 				console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
@@ -788,14 +796,14 @@
 			var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', {
 				'list': 'ordered'
 			}, {
-					'list': 'bullet'
-				}, {
-					size: ['small', false, 'large', 'huge']
-				}, {
-					'align': []
-				}, {
-					'direction': 'rtl'
-				}, 'clean']
+				'list': 'bullet'
+			}, {
+				size: ['small', false, 'large', 'huge']
+			}, {
+				'align': []
+			}, {
+				'direction': 'rtl'
+			}, 'clean']
 			$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
 			var quill = new Quill(`#editor-${wid}-${tid}`, {
 				theme: 'snow',
@@ -812,13 +820,13 @@
 			});
 		}
 		// Delete Instance
-		$(`.tdelete`).on('click', function (e) {
+		$(`.tdelete`).on('click', function(e) {
 			$(this).parent().parent().parent().parent().remove();
 		})
-		$("#email").click(function (event) {
+		$("#email").click(function(event) {
 			createTask_Email("l9zgqjql")
 		});
-		$("#restoreall").click(function (event) {
+		$("#restoreall").click(function(event) {
 			$("#tasks-point-l9zgqjql").html('')
 			var wflw = {
 				id: "l9zgqjql",
@@ -826,28 +834,38 @@
 					"taskType": "email",
 					"id": "y9f514dg",
 					"name": "l9zgqjql-y9f514dg",
-					"taskType": "Email",
 					"senderEmail": "somethinggoodone@gmail.com",
 					"replyTo": "somethinggoodone@gmail.com",
-					"editorType": "wysiwyg",
+					"editorType": "wysiwyg", //html or docs
 					"htmlBody": "<p>This is a test email</p>",
 					"attachMergedFiles": true,
-					"serviceName": "Gmail",
+					"serviceName": "Gmail", //"Amazon SES" or "SendGrid" or "SparkPost"
 					"senderName": "Anony Dee",
 					"subject": "Test subject",
 					"to": "to1recipient1@gmail.com,torecipient2@gmail.com",
 					"cc": "cc@gmail.com",
 					"bcc": "bcc@gmail.com",
-					"emailQuestion": "{{Your Fathers email?}}",
-					"attachFormUploads": true
+					"attachFormUploads": true,
+
+					"emailTemplateId": "2y_aGsyCWgpwZOd0vG-qEbUVPdA714aDDW_TVzf0ZwqY",
+					"emailTemplateName": "template",
+					"emailTemplateMime": "application/vnd.google-apps.document",
+
+					"sesRegion": "us-east-2",
+					"sesKeyId": "SES1",
+					"sesSecret": "SESSecret",
+
+					"sendGridKey": "SendGridAPIKEY",
+
+					"sparkPostKey": "SparkPostAPIKEYXXXXXX"
+
 				}, {
 					"taskType": "email",
 					"id": "j2f514dg",
 					"name": "l9zgqjql-j2f514dg",
-					"taskType": "Email",
 					"senderEmail": "tetrahedron@gmail.com",
 					"replyTo": "square@gmail.com",
-					"editorType": "html",
+					"editorType": "html", //wysiwyg or docs
 					"htmlBody": "<p>This is a test email</p><h1>This is heading</h1>",
 					"attachMergedFiles": true,
 					"serviceName": "Gmail",
@@ -856,8 +874,20 @@
 					"to": "triangle@gmail.com,pentagon@gmail.com",
 					"cc": "cc@gmail.com",
 					"bcc": "bcc@gmail.com",
-					"emailQuestion": "{{Your Mothers email?}}",
-					"attachFormUploads": false
+					"attachFormUploads": false,
+
+					"emailTemplateId": "2y_aGsyCWgpwZOd0vG-qEbUVPdA714aDDW_TVzf0ZwqY",
+					"emailTemplateName": "template",
+					"emailTemplateMime": "application/vnd.google-apps.document",
+
+					"sesRegion": "us-east-2",
+					"sesKeyId": "SES1",
+					"sesSecret": "SESSecret",
+
+					"sendGridKey": "SendGridAPIKEY",
+
+					"sparkPostKey": "SparkPostAPIKEYXXXXXX"
+
 				}]
 			}
 			wflw.tasks.forEach(t => {
@@ -866,10 +896,10 @@
 				}
 			})
 		});
-		$(`#sendall`).click(function (e) {
+		$(`#sendall`).click(function(e) {
 			r = [];
 			error = false;
-			$(`#tasks-point-l9zgqjql`).children().each(function () {
+			$(`#tasks-point-l9zgqjql`).children().each(function() {
 				if ($(this).data("type") == "email") {
 					var ids = $(this).data("id").split("-");
 					var w = getEmailValues(ids[0], ids[1])
