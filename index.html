@@ -468,7 +468,7 @@
 									<tr class="aws-row-${wid}-${tid}">
 										<td class="p-3">
 											<label for="ses_region-${wid}-${tid}" class="form-label">AWS Region</label>
-											<select class="form-select" id="ses_region-${wid}{tid}">
+											<select class="form-select" id="ses_region-${wid}-${tid}">
 												<option value="">Choose AWS Region...</option>
 												<option value="us-east-2">US East (Ohio)</option>
 												<option value="us-east-1">US East (N. Virginia)</option>
@@ -661,7 +661,7 @@
 				email: "example@gmail.com"
 			}]
 			SENDERS_EMAILS.forEach((data, index) => {
-				$(`#sender_email-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+				$(`#sender_email-${wid}-${tid}`).append(`<option value="${data.email}">${data.email}</option>`);
 			})
 
 			var REPLY_TO_EMAILS = [{
@@ -670,7 +670,7 @@
 				email: "example@gmail.com"
 			}]
 			REPLY_TO_EMAILS.forEach((data, index) => {
-				$(`#reply_to-${wid}-${tid}`).append(`<option value="${index}">${data.email}</option>`);
+				$(`#reply_to-${wid}-${tid}`).append(`<option value="${data.email}">${data.email}</option>`);
 			})
 
 			$(`#editor_type-${wid}-${tid}`).on("change", function() {
@@ -709,84 +709,55 @@
 				if (!task) return;
 				var pj = task;
 
+				// Service Name
+				if(pj.serviceName === "Gmail"){
+					$(`#service_name-${wid}-${tid}`).val(pj.serviceName.toLowerCase()).trigger("change");
+					// Sender Name
+					$(`#sender_name-${wid}-${tid}`).val(pj.senderName);
+					// Sender Email
+					$(`#sender_email-${wid}-${tid}`).val(pj.senderEmail).trigger("change");
+				} else if(pj.serviceName === "Amazon SES"){
+					$(`#service_name-${wid}-${tid}`).val("amazon").trigger("change");
+					// Aws Region
+					$(`#ses_region-${wid}-${tid}`).val(pj.sesRegion).trigger("change");
+					// SES key
+					$(`#ses_key_id-${wid}-${tid}`).val(pj.sesKeyId);
+					// SES secret
+					$(`#ses_secret-${wid}-${tid}`).val(pj.sesSecret);
+				} else if(pj.serviceName === "SendGrid"){
+					$(`#service_name-${wid}-${tid}`).val(pj.serviceName.toLowerCase()).trigger("change");
+					$(`#send_grid_key-${wid}-${tid}`).val(pj.sendGridKey);
+				} else if(pj.serviceName === "SparkPost"){
+					$(`#service_name-${wid}-${tid}`).val(pj.serviceName.toLowerCase()).trigger("change");
+					$(`#spark_post_key-${wid}-${tid}`).val(pj.sparkPostKey);
+				}
+				
+				// TO, CC, BCC
+				$(`#to-${wid}-${tid}`).val(pj.to);
+				$(`#cc-${wid}-${tid}`).val(pj.cc);
+				$(`#bcc-${wid}-${tid}`).val(pj.bcc);
+				
+				// Reply to email
+				$(`#reply_to-${wid}-${tid}`).val(pj.replyTo).trigger("change");
+				
+				// Subject
+				$(`#subject-${wid}-${tid}`).val(pj.subject);
+				// Editor type
+				$(`#editor_type-${wid}-${tid}`).val(pj.editorType).trigger("change");
+				
+				// DOCS
+				$(`email_template_id-${wid}-${tid}`).val(pj.emailTemplateId);
+				$(`email_template_name-${wid}-${tid}`).val(pj.emailTemplateName);
 
+				if(pj.attachMergedFiles) {
+					$(`#attach_merged_files-${wid}-${tid}`).prop('checked', true);
+				} else{
+					$(`#attach_merged_files-${wid}-${tid}`).removeAttr('checked');
+				}
+				if (pj.attachFormUploads) {
+					$(`#attach_form_uploads-${wid}-${tid}`).prop('checked', true);
+				}
 
-				// Page Setup
-				// Print
-				if (pj.print.type === "workbook") {
-					$(`#print-${wid}-${tid}`).val(pj.print.type).trigger("change");
-					$(`.selection-${wid}-${tid} :checkbox`).prop('checked', false); //deselect all
-					$(`.selection-${wid}-${tid} :checkbox`).each(function() {
-						pj.print.value.forEach((val) => {
-							if (val.sheet === $(this).val()) {
-								$(this).prop('checked', true).trigger("change");
-							}
-						})
-					}).trigger("change");
-				} else if (pj.print.type === "custom") {
-					if (pj.print.value[0].hasOwnProperty("range")) {
-						optionText = `Selected range of ${pj.print.value[0].sheet}`;
-						$(`#print-range-${wid}-${tid}`).val(pj.print.value[0].range)
-					} else optionText = `${pj.print.value[0].sheet}`
-					$(`#print-${wid}-${tid} option`).removeAttr('selected').map(function() {
-						if ($(this).text() === optionText) return this;
-					}).attr('selected', true).trigger("change");
-				}
-				// Paper size
-				if (pj.size.type === "custom") {
-					$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
-					$(`#size-height-${wid}-${tid}`).val(pj.size.value.height);
-					$(`#size-width-${wid}-${tid}`).val(pj.size.value.width);
-				} else {
-					$(`#size-${wid}-${tid}`).val(pj.size.type).trigger("change");
-				}
-				// Margins
-				if (pj.margins.type === "custom") {
-					$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
-					$(`#margins-top-${wid}-${tid}`).val(pj.margins.value.top);
-					$(`#margins-left-${wid}-${tid}`).val(pj.margins.value.left);
-					$(`#margins-right-${wid}-${tid}`).val(pj.margins.value.right);
-					$(`#margins-bottom-${wid}-${tid}`).val(pj.margins.value.bottom);
-				} else {
-					$(`#margins-${wid}-${tid}`).val(pj.margins.type).trigger("change");
-				}
-				// Scale
-				if (pj.scale.type === "custom") {
-					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-					$(`#percentage-${wid}-${tid}`).val(pj.scale.value.percentage * 100);
-				} else if (pj.scale.type == "fit_pagebreak") {
-					console.log("calling " + pj.scale.type);
-					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-					$(`#break-row-${wid}-${tid}`).val(pj.scale.value.row)
-					$(`#break-column-${wid}-${tid}`).val(pj.scale.value.column).trigger("change");
-				} else {
-					$(`#scale-${wid}-${tid}`).val(pj.scale.type).trigger("change");
-				}
-				// Set page orientation
-				$("input[name='pageSetupRadio']").val([`${pj.orientation.type}`])
-				// Formatting Tab
-				$(`#pageorder-${wid}-${tid}`).val(pj.pageorder.value).trigger("change");
-				$(`#horizontal-alignment-${wid}-${tid}`).val(pj.h_alignment.value).trigger("change");
-				$(`#vertical-alignment-${wid}-${tid}`).val(pj.v_alignment.value).trigger("change");
-				if (pj.notes.value === "true") {
-					$(`#shownotes-${wid}-${tid}`).prop('checked', true);
-				}
-				if (pj.gridlines.value === "true") {
-					$(`#showgridlines-${wid}-${tid}`).prop('checked', true);
-				}
-				// Headers and Footers tab
-				if (pj.hf.options.hf_fzr) {
-					$(`#frozen-rows-${wid}-${tid}`).prop('checked', true);
-				}
-				if (pj.hf.options.hf_fzc) {
-					$(`#frozen-columns-${wid}-${tid}`).prop('checked', true);
-				}
-				$(`#top-left-${wid}-${tid}`).val(pj.hf.value.top_left)
-				$(`#top-middle-${wid}-${tid}`).val(pj.hf.value.top_center)
-				$(`#top-right-${wid}-${tid}`).val(pj.hf.value.top_right)
-				$(`#bottom-left-${wid}-${tid}`).val(pj.hf.value.bottom_left)
-				$(`#bottom-middle-${wid}-${tid}`).val(pj.hf.value.bottom_center)
-				$(`#bottom-right-${wid}-${tid}`).val(pj.hf.value.bottom_right)
 			}).trigger("click");
 			$(`.done-${wid}-${tid}`).on('click', function(e) {
 				e.preventDefault()
