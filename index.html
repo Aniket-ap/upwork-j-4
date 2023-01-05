@@ -592,8 +592,8 @@
 									<tr class="email-bodyhtml-section-${wid}-${tid}">
 										<td class="p-3" colspan="3">
 											<label for="email-body-html-${wid}-${tid}" class="form-label">Email Body</label>
-											<div id="editor-html-${wid}-${tid}">
-												
+											<div>
+												<textarea class="form-control" id="editor-html-${wid}-${tid}"></textarea>
 											</div>
 										</td>
 									</tr>
@@ -743,8 +743,15 @@
 				// Subject
 				$(`#subject-${wid}-${tid}`).val(pj.subject);
 				// Editor type
+				// htmlBody
 				$(`#editor_type-${wid}-${tid}`).val(pj.editorType).trigger("change");
-				
+				// if(pj.editorType === "wysiwyg"){
+				// 	$(`#editor-${wid}-${tid} > p`).val(pj.htmlBody);
+				// } 
+				if(pj.editorType === "html"){
+					$(`#editor-html-${wid}-${tid}`).val(pj.htmlBody);
+				}
+
 				// DOCS
 				$(`#email_template_id-${wid}-${tid}`).val(pj.emailTemplateId);
 				$(`#email_template_name-${wid}-${tid}`).val(pj.emailTemplateName);
@@ -758,6 +765,7 @@
 				if (pj.attachFormUploads) {
 					$(`#attach_form_uploads-${wid}-${tid}`).prop('checked', true);
 				}
+				
 
 			}).trigger("click");
 			$(`.done-${wid}-${tid}`).on('click', function(e) {
@@ -787,12 +795,7 @@
 					toolbar: toolbarOptions
 				}
 			});
-			var quill = new Quill(`#editor-html-${wid}-${tid}`, {
-				theme: 'snow',
-				modules: {
-					toolbar: false
-				}
-			});
+
 		}
 		// Delete Instance
 		$(`.tdelete`).on('click', function(e) {
