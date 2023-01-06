@@ -199,35 +199,48 @@
 			result.taskType = "email";
 			result.id = tid;
 			result.name = `${wid}-${tid}`;
-			result.senderEmail = $(`#sender_email-${wid}-${tid}`).val();
 			result.replyTo = $(`#reply_to-${wid}-${tid}`).val();
-			result.editorType = $(`#editor_type-${wid}-${tid}`).val();
 			result.attachMergedFiles = $(`#attach_merged_files-${wid}-${tid}`).is(":checked");
 			result.attachFormUploads = $(`#attach_form_uploads-${wid}-${tid}`).is(":checked");
 			// Service name
 			let val = $(`#service_name-${wid}-${tid}`).val();
 			if (val === "gmail") {
 				result.serviceName = "Gmail"
+				result.senderName = $(`#sender_name-${wid}-${tid}`).val();
+				result.senderEmail = $(`#sender_email-${wid}-${tid}`).val();
 			} else if (val === "amazon") {
-				result.serviceName = "Amazon SES"
+				result.serviceName = "Amazon SES";
+				result.sesRegion = $(`#ses_region-${wid}-${tid}`).val();
+				result.sesKeyId = $(`#ses_key_id-${wid}-${tid}`).val();
+				result.sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
 			} else if (val === "sendgrid") {
 				result.serviceName = "SendGrid"
+				result.sendGridKey = $(`#send_grid_key-${wid}-${tid}`).val();
 			} else if (val === "sparkpost") {
 				result.serviceName = "SparkPost"
+				result.sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
 			}
-			result.senderName = $(`#sender_name-${wid}-${tid}`).val();
-			result.subject = $(`#subject-${wid}-${tid}`).val();
+			
+			let editorTypeValue = $(`#editor_type-${wid}-${tid}`).val();
+			if(editorTypeValue === "wysiwyg"){
+				result.editorType = "wysiwyg";
+				result.htmlBody = "Working on it, will update on next change";
+				// result.htmlBody = quill.root.innerHTML;
+			} else if(editorTypeValue === "html"){
+				result.editorType = "html";
+				result.htmlBody = $(`#editor-html-${wid}-${tid}`).val();
+			} else if(editorTypeValue === "docs"){
+				result.editorType = "docs";
+				result.subject = $(`#subject-${wid}-${tid}`).val();
+				result.emailTemplateName = $(`#email_template_name-${wid}-${tid}`).val();
+			}
+
 			result.to = $(`#to-${wid}-${tid}`).val();
 			result.cc = $(`#cc-${wid}-${tid}`).val();
 			result.bcc = $(`#bcc-${wid}-${tid}`).val();
-			result.emailTemplateId = $(`#email_template_id-${wid}-${tid}`).val();
-			result.emailTemplateName = $(`#email_template_name-${wid}-${tid}`).val();
-			result.emailTemplateMime = $(`#email_template_mime-${wid}-${tid}`).val();
-			result.sesRegion = $(`#ses_region-${wid}-${tid}`).val();
-			result.sesKeyId = $(`#ses_key_id-${wid}-${tid}`).val();
-			result.sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
-			result.sendGridKey = $(`#send_grid_key-${wid}-${tid}`).val();
-			result.sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
+			// result.emailTemplateId = $(`#email_template_id-${wid}-${tid}`).val();
+			// result.emailTemplateMime = $(`#email_template_mime-${wid}-${tid}`).val();
+			
 
 			return result;
 		}
@@ -482,6 +495,26 @@
 				$(`#reply_to-${wid}-${tid}`).append(`<option value="${data.email}">${data.email}</option>`);
 			})
 
+			var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', {
+				'list': 'ordered'
+			}, {
+					'list': 'bullet'
+				}, {
+					size: ['small', false, 'large', 'huge']
+				}, {
+					'align': []
+				}, {
+					'direction': 'rtl'
+				}, 'clean']
+			$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
+			var quill = new Quill(`#editor-${wid}-${tid}`, {
+				theme: 'snow',
+				placeholder: 'Use HTML tags and {{Column Title}} for composing personalized emails',
+				modules: {
+					toolbar: toolbarOptions
+				}
+			});
+
 			$(`#editor_type-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
 				if (value === "wysiwyg") {
@@ -524,11 +557,11 @@
 					// Sender Name
 					$(`#sender_name-${wid}-${tid}`).val(pj.senderName);
 					// Sender Email
-					$(`#sender_email-${wid}-${tid}`).val(pj.senderEmail).trigger("change");
+					$(`#sender_email-${wid}-${tid}`).val(pj.senderEmail)
 				} else if (pj.serviceName === "Amazon SES") {
 					$(`#service_name-${wid}-${tid}`).val("amazon").trigger("change");
 					// Aws Region
-					$(`#ses_region-${wid}-${tid}`).val(pj.sesRegion).trigger("change");
+					$(`#ses_region-${wid}-${tid}`).val(pj.sesRegion)
 					// SES key
 					$(`#ses_key_id-${wid}-${tid}`).val(pj.sesKeyId);
 					// SES secret
@@ -547,16 +580,16 @@
 				$(`#bcc-${wid}-${tid}`).val(pj.bcc);
 
 				// Reply to email
-				$(`#reply_to-${wid}-${tid}`).val(pj.replyTo).trigger("change");
+				$(`#reply_to-${wid}-${tid}`).val(pj.replyTo)
 
 				// Subject
 				$(`#subject-${wid}-${tid}`).val(pj.subject);
 				// Editor type
 				// htmlBody
 				$(`#editor_type-${wid}-${tid}`).val(pj.editorType).trigger("change");
-				// if(pj.editorType === "wysiwyg"){
-				// 	$(`#editor-${wid}-${tid} > p`).val(pj.htmlBody);
-				// } 
+				if(pj.editorType === "wysiwyg"){
+					quill.pasteHTML(pj.htmlBody);
+				} 
 				if (pj.editorType === "html") {
 					$(`#editor-html-${wid}-${tid}`).val(pj.htmlBody);
 				}
@@ -585,25 +618,6 @@
 				// $(`#task-modal-${wid}-${tid}`).modal('hide');
 				// }
 			})
-			var toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'link', 'image', {
-				'list': 'ordered'
-			}, {
-					'list': 'bullet'
-				}, {
-					size: ['small', false, 'large', 'huge']
-				}, {
-					'align': []
-				}, {
-					'direction': 'rtl'
-				}, 'clean']
-			$(`#editor-${wid}-${tid}, #editor-html-${wid}-${tid}`).css("height", "250px")
-			var quill = new Quill(`#editor-${wid}-${tid}`, {
-				theme: 'snow',
-				placeholder: 'Use HTML tags and {{Column Title}} for composing personalized emails',
-				modules: {
-					toolbar: toolbarOptions
-				}
-			});
 
 		}
 		// Delete Instance
