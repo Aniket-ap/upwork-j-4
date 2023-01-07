@@ -156,6 +156,41 @@
 		.form-check {
 			margin-bottom: 0 !important;
 		}
+
+		.required:after {
+			content: " *";
+			color: #ff0000;
+			font-weight: bold;
+		}
+
+		.was-validated .form-control:invalid{
+			background-image: none;
+		}
+
+		.was-validated .form-control:valid{
+			background-image: none;
+			border-color: #ced4da;
+		}
+		
+		.was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:invalid:not([multiple]):not([size]){
+			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");;
+			border-color: #ced4da;
+		}
+
+		.was-validated .form-check-input:valid:checked{
+			background-color: #673ab7 !important;
+    		border-color: #673ab7 !important;
+		}
+		.was-validated .form-check-input:valid{
+    		border-color: rgba(0, 0, 0, .25) !important;
+		}
+		.stool {
+			cursor: pointer;
+			user-select: none;
+			text-transform: uppercase;
+			z-index: 999;
+		}
+
 	</style>
 </head>
 
@@ -220,16 +255,16 @@
 				result.serviceName = "SparkPost"
 				result.sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
 			}
-			
+
 			let editorTypeValue = $(`#editor_type-${wid}-${tid}`).val();
-			if(editorTypeValue === "wysiwyg"){
+			if (editorTypeValue === "wysiwyg") {
 				result.editorType = "wysiwyg";
 				result.htmlBody = "Working on it, will update on next change";
 				// result.htmlBody = quill.root.innerHTML;
-			} else if(editorTypeValue === "html"){
+			} else if (editorTypeValue === "html") {
 				result.editorType = "html";
 				result.htmlBody = $(`#editor-html-${wid}-${tid}`).val();
-			} else if(editorTypeValue === "docs"){
+			} else if (editorTypeValue === "docs") {
 				result.editorType = "docs";
 				result.subject = $(`#subject-${wid}-${tid}`).val();
 				result.emailTemplateName = $(`#email_template_name-${wid}-${tid}`).val();
@@ -240,7 +275,7 @@
 			result.bcc = $(`#bcc-${wid}-${tid}`).val();
 			// result.emailTemplateId = $(`#email_template_id-${wid}-${tid}`).val();
 			// result.emailTemplateMime = $(`#email_template_mime-${wid}-${tid}`).val();
-			
+
 
 			return result;
 		}
@@ -267,6 +302,7 @@
 			<div class="modal-body border">
 				<!--Modal body goes here.-->
 				<div class="container mt-5">
+					<form class="row g-3 needs-validation" id="form-${wid}-${tid}" novalidate>
 					<div id="email-container-${wid}-${tid}" >
 							<table border="0" width="100%" style="table-layout:fixed;">
 								<tbody>
@@ -289,8 +325,8 @@
 									</tr>
 									<tr class="aws-row-${wid}-${tid}">
 										<td class="p-3">
-											<label for="ses_region-${wid}-${tid}" class="form-label">AWS Region</label>
-											<select class="form-select" id="ses_region-${wid}-${tid}">
+											<label for="ses_region-${wid}-${tid}" class="form-label required">AWS Region</label>
+											<select class="form-select" id="ses_region-${wid}-${tid}" required>
 												<option value="">Choose AWS Region...</option>
 												<option value="us-east-2">US East (Ohio)</option>
 												<option value="us-east-1">US East (N. Virginia)</option>
@@ -313,26 +349,41 @@
 												<option value="sa-east-1">South America (São Paulo)</option>
 												<option value="us-gov-west-1">AWS GovCloud (US-West)</option>
 											</select>
+											<div class="invalid-feedback">
+												Please choose AWS Region.
+											</div>
 										</td>
 										<td class="p-3">
 											<label for="ses_key_id-${wid}-${tid}" class="form-label">SES Key id</label>
-											<input type="text" class="form-control" id="ses_key_id-${wid}-${tid}" />
+											<input type="text" class="form-control" id="ses_key_id-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												Please provide a valid SES Key id.
+											</div>
 										</td>
 										<td class="p-3">
 											<label for="ses_secret-${wid}-${tid}" class="form-label">SES Secret</label>
-											<input type="text" class="form-control" id="ses_secret-${wid}-${tid}" />
+											<input type="text" class="form-control" id="ses_secret-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												Please provide a valid SES Secret.
+											</div>
 										</td>
 									</tr>
 									<tr class="sendgrid-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
 											<label for="send_grid_key-${wid}-${tid}" class="form-label">SendGrid API Key</label>
-											<input type="text" class="form-control" id="send_grid_key-${wid}-${tid}" />
+											<input type="text" class="form-control" id="send_grid_key-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												Please provide a valid API Key.
+											</div>
 										</td>
 									</tr>
 									<tr class="sparkpost-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
 											<label for="spark_post_key-${wid}-${tid}" class="form-label">SparkPost API Key</label>
-											<input type="text" class="form-control" id="spark_post_key-${wid}-${tid}" />
+											<input type="text" class="form-control" id="spark_post_key-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												Please provide a valid API Key.
+											</div>
 										</td>
 									</tr>
 									<tr class="gmail-row-${wid}-${tid}">
@@ -360,15 +411,24 @@
 									<tr>
 										<td class="p-3">
 											<label for="to-${wid}-${tid}" class="form-label">To</label>
-											<input type="text" class="form-control" id="to-${wid}-${tid}" />
+											<input type="text" class="form-control" id="to-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												This should not be empty.
+											</div>
 										</td>
 										<td class="p-3">
 											<label for="cc-${wid}-${tid}" class="form-label">CC</label>
-											<input type="text" class="form-control" id="cc-${wid}-${tid}" />
+											<input type="text" class="form-control" id="cc-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												This should not be empty.
+											</div>
 										</td>
 										<td class="p-3">
 											<label for="bcc-${wid}-${tid}" class="form-label">BCC</label>
-											<input type="text" class="form-control" id="bcc-${wid}-${tid}" />
+											<input type="text" class="form-control" id="bcc-${wid}-${tid}" required />
+											<div class="invalid-feedback">
+												This should not be empty.
+											</div>
 										</td>
 									</tr>
 									<tr>
@@ -414,9 +474,24 @@
 									<tr class="email-bodyhtml-section-${wid}-${tid}">
 										<td class="p-3" colspan="3">
 											<label for="email-body-html-${wid}-${tid}" class="form-label">Email Body</label>
-											<div>
-												<textarea class="form-control" id="editor-html-${wid}-${tid}"></textarea>
+											<div class="container position-relative border">
+												<div class="toolbar mt-3">
+													<small id="showpreview" class="btn btn-sm bg-light border border-secondary stool position-absolute top-0 end-0 px-2">
+														Preview
+													</small>
+													<small id="showhtml" class="btn btn-sm bg-light border border-secondary stool position-absolute top-0 end-0 px-2" style="display:none">
+														HTML
+													</small>
+												</div>
+												<div>
+													<textarea id="editor-html-${wid}-${tid}" class="form-control m-0 p-0 border-0 mt-2" style="width:100%;resize: none;outline: none"></textarea>
+
+													<iframe src="javascript:void(0);" id="embody-preview-${wid}-${tid}" style="width:100%;">
+
+													</iframe>
+												</div>
 											</div>
+
 										</td>
 									</tr>
 									<tr class="google-docs-section-${wid}-${tid}">
@@ -463,6 +538,7 @@
 								</tbody>
 							</table>
 						</div>
+					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -476,6 +552,8 @@
 			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 			// Hide all the row initially
 			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
+			$("input[required]").prev("label").addClass("required");
+			$(`#to-${wid}-${tid}, #cc-${wid}-${tid}, #bcc-${wid}-${tid}`).prev("label").removeClass("required");
 
 			var SENDERS_EMAILS = [{
 				email: "somethinggoodone@gmail.com"
@@ -514,6 +592,19 @@
 					toolbar: toolbarOptions
 				}
 			});
+
+			$("#showpreview").click(function() {
+				$(this).hide();
+				let embody = $(`#editor-html-${wid}-${tid}`).val()
+				$(`#embody-preview-${wid}-${tid}`).contents().find('html').html(embody)
+				$(`#showhtml,#embody-preview-${wid}-${tid}`).show();
+				$(`#editor-html-${wid}-${tid}`).hide();
+			});
+			$("#showhtml").click(function() {
+				$(this).hide();
+				$(`#showpreview,#editor-html-${wid}-${tid}`).show();
+				$(`#embody-preview-${wid}-${tid}`).hide();
+			}); 
 
 			$(`#editor_type-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
@@ -587,9 +678,9 @@
 				// Editor type
 				// htmlBody
 				$(`#editor_type-${wid}-${tid}`).val(pj.editorType).trigger("change");
-				if(pj.editorType === "wysiwyg"){
+				if (pj.editorType === "wysiwyg") {
 					quill.pasteHTML(pj.htmlBody);
-				} 
+				}
 				if (pj.editorType === "html") {
 					$(`#editor-html-${wid}-${tid}`).val(pj.htmlBody);
 				}
@@ -613,11 +704,39 @@
 			$(`.done-${wid}-${tid}`).on('click', function (e) {
 				e.preventDefault()
 				e.stopPropagation()
+				checkFormValidation()
 				console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
 				// if (getEmailValues(wid, tid)) {
 				// $(`#task-modal-${wid}-${tid}`).modal('hide');
 				// }
 			})
+
+			function checkFormValidation() {
+				let sesRegion = $(`#ses_region-${wid}-${tid}`).val();
+				if(sesRegion === "amazon"){
+					let sesKeyId = $(`#ses_key_id-${wid}-${tid}`).val();
+					let sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
+					if (sesRegion === "" || sesKeyId === "" || sesSecret === "") {
+						$(`#form-${wid}-${tid}`).addClass("was-validated");
+					}
+				} else if(sesRegion === "sendgrid"){
+					let sendGridKey = $(`#send_grid_key-${wid}-${tid}`).val();
+					if (sendGridKey === "") {
+						$(`#form-${wid}-${tid}`).addClass("was-validated");
+					}
+				} else if(sesRegion === "sparkpost"){
+					let sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
+					if (sparkPostKey === "") {
+						$(`#form-${wid}-${tid}`).addClass("was-validated");
+					}
+				}
+				let to = $(`#to-${wid}-${tid}`).val();
+				let cc = $(`#cc-${wid}-${tid}`).val();
+				let bcc = $(`#bcc-${wid}-${tid}`).val();
+				if (to === "" || cc === "" || bcc === "") {
+					$(`#form-${wid}-${tid}`).addClass("was-validated");
+				}
+			}
 
 		}
 		// Delete Instance
