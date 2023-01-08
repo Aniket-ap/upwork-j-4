@@ -163,27 +163,6 @@
 			font-weight: bold;
 		}
 
-		.was-validated .form-control:invalid{
-			background-image: none;
-		}
-
-		.was-validated .form-control:valid{
-			background-image: none;
-			border-color: #ced4da;
-		}
-		
-		.was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:invalid:not([multiple]):not([size]){
-			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");;
-			border-color: #ced4da;
-		}
-
-		.was-validated .form-check-input:valid:checked{
-			background-color: #673ab7 !important;
-    		border-color: #673ab7 !important;
-		}
-		.was-validated .form-check-input:valid{
-    		border-color: rgba(0, 0, 0, .25) !important;
-		}
 		.stool {
 			cursor: pointer;
 			user-select: none;
@@ -245,15 +224,40 @@
 				result.senderEmail = $(`#sender_email-${wid}-${tid}`).val();
 			} else if (val === "amazon") {
 				result.serviceName = "Amazon SES";
-				result.sesRegion = $(`#ses_region-${wid}-${tid}`).val();
-				result.sesKeyId = $(`#ses_key_id-${wid}-${tid}`).val();
-				result.sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
+				let region = $(`#ses_region-${wid}-${tid}`).val()
+				if(region === ""){
+					alert("Please choose AWS Region.");
+					return;
+				}
+				result.sesRegion = region;
+				let sesKey = $(`#ses_key_id-${wid}-${tid}`).val();
+				if(sesKey === ""){
+					alert("SES Key id value should not be empty.");
+					return;
+				}
+				result.sesKeyId = sesKey;
+				let sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
+				if(sesSecret === ""){
+					alert("SES Secret value should not be empty.");
+					return;
+				}
+				result.sesSecret = sesSecret
 			} else if (val === "sendgrid") {
 				result.serviceName = "SendGrid"
-				result.sendGridKey = $(`#send_grid_key-${wid}-${tid}`).val();
+				let sendGrid = $(`#send_grid_key-${wid}-${tid}`).val();
+				if(sendGrid === ""){
+					alert("SendGrid API Key value should not be empty.");
+					return;
+				}
+				result.sendGridKey = sendGrid;
 			} else if (val === "sparkpost") {
 				result.serviceName = "SparkPost"
-				result.sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
+				let sparkPost = $(`#spark_post_key-${wid}-${tid}`).val();
+				if(sparkPost === ""){
+					alert("sparkPost API Key value should not be empty.");
+					return;
+				}
+				result.sparkPostKey = sparkPost;
 			}
 
 			let editorTypeValue = $(`#editor_type-${wid}-${tid}`).val();
@@ -270,12 +274,27 @@
 				result.emailTemplateName = $(`#email_template_name-${wid}-${tid}`).val();
 			}
 
-			result.to = $(`#to-${wid}-${tid}`).val();
-			result.cc = $(`#cc-${wid}-${tid}`).val();
-			result.bcc = $(`#bcc-${wid}-${tid}`).val();
-			// result.emailTemplateId = $(`#email_template_id-${wid}-${tid}`).val();
-			// result.emailTemplateMime = $(`#email_template_mime-${wid}-${tid}`).val();
-
+			let toVal = $(`#to-${wid}-${tid}`).val();
+			let ccVal = $(`#cc-${wid}-${tid}`).val();
+			let bccVal = $(`#bcc-${wid}-${tid}`).val();
+			if(toVal === ""){
+				alert("TO value should not be empty.");
+				return;
+			} else {
+				result.to = toVal;
+			}
+			if(ccVal === ""){
+				alert("CC value should not be empty.");
+				return;
+			} else {
+				result.cc = ccVal;
+			}
+			if(bccVal === ""){
+				alert("BCC value should not be empty.");
+				return;
+			} else {
+				result.bcc = bccVal;
+			}
 
 			return result;
 		}
@@ -302,7 +321,6 @@
 			<div class="modal-body border">
 				<!--Modal body goes here.-->
 				<div class="container mt-5">
-					<form class="row g-3 needs-validation" id="form-${wid}-${tid}" novalidate>
 					<div id="email-container-${wid}-${tid}" >
 							<table border="0" width="100%" style="table-layout:fixed;">
 								<tbody>
@@ -326,7 +344,7 @@
 									<tr class="aws-row-${wid}-${tid}">
 										<td class="p-3">
 											<label for="ses_region-${wid}-${tid}" class="form-label required">AWS Region</label>
-											<select class="form-select" id="ses_region-${wid}-${tid}" required>
+											<select class="form-select" id="ses_region-${wid}-${tid}">
 												<option value="">Choose AWS Region...</option>
 												<option value="us-east-2">US East (Ohio)</option>
 												<option value="us-east-1">US East (N. Virginia)</option>
@@ -349,41 +367,26 @@
 												<option value="sa-east-1">South America (São Paulo)</option>
 												<option value="us-gov-west-1">AWS GovCloud (US-West)</option>
 											</select>
-											<div class="invalid-feedback">
-												Please choose AWS Region.
-											</div>
 										</td>
 										<td class="p-3">
-											<label for="ses_key_id-${wid}-${tid}" class="form-label">SES Key id</label>
-											<input type="text" class="form-control" id="ses_key_id-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												Please provide a valid SES Key id.
-											</div>
+											<label for="ses_key_id-${wid}-${tid}" class="form-label required">SES Key id</label>
+											<input type="text" class="form-control" id="ses_key_id-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
-											<label for="ses_secret-${wid}-${tid}" class="form-label">SES Secret</label>
-											<input type="text" class="form-control" id="ses_secret-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												Please provide a valid SES Secret.
-											</div>
+											<label for="ses_secret-${wid}-${tid}" class="form-label required">SES Secret</label>
+											<input type="text" class="form-control" id="ses_secret-${wid}-${tid}"  />
 										</td>
 									</tr>
 									<tr class="sendgrid-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
-											<label for="send_grid_key-${wid}-${tid}" class="form-label">SendGrid API Key</label>
-											<input type="text" class="form-control" id="send_grid_key-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												Please provide a valid API Key.
-											</div>
+											<label for="send_grid_key-${wid}-${tid}" class="form-label required">SendGrid API Key</label>
+											<input type="text" class="form-control" id="send_grid_key-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="sparkpost-row-${wid}-${tid}">
 										<td colspan="3" class="p-3">
-											<label for="spark_post_key-${wid}-${tid}" class="form-label">SparkPost API Key</label>
-											<input type="text" class="form-control" id="spark_post_key-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												Please provide a valid API Key.
-											</div>
+											<label for="spark_post_key-${wid}-${tid}" class="form-label required">SparkPost API Key</label>
+											<input type="text" class="form-control" id="spark_post_key-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr class="gmail-row-${wid}-${tid}">
@@ -411,24 +414,15 @@
 									<tr>
 										<td class="p-3">
 											<label for="to-${wid}-${tid}" class="form-label">To</label>
-											<input type="text" class="form-control" id="to-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												This should not be empty.
-											</div>
+											<input type="text" class="form-control" id="to-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
 											<label for="cc-${wid}-${tid}" class="form-label">CC</label>
-											<input type="text" class="form-control" id="cc-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												This should not be empty.
-											</div>
+											<input type="text" class="form-control" id="cc-${wid}-${tid}" />
 										</td>
 										<td class="p-3">
 											<label for="bcc-${wid}-${tid}" class="form-label">BCC</label>
-											<input type="text" class="form-control" id="bcc-${wid}-${tid}" required />
-											<div class="invalid-feedback">
-												This should not be empty.
-											</div>
+											<input type="text" class="form-control" id="bcc-${wid}-${tid}" />
 										</td>
 									</tr>
 									<tr>
@@ -538,7 +532,6 @@
 								</tbody>
 							</table>
 						</div>
-					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -552,8 +545,6 @@
 			if (!task) $(`#task-modal-${wid}-${tid}`).modal("show");
 			// Hide all the row initially
 			$(`.sparkpost-row-${wid}-${tid}, .sendgrid-row-${wid}-${tid}, .aws-row-${wid}-${tid}, .gmail-row-${wid}-${tid}, .email-bodyhtml-section-${wid}-${tid}, .google-docs-section-${wid}-${tid}`).hide();
-			$("input[required]").prev("label").addClass("required");
-			$(`#to-${wid}-${tid}, #cc-${wid}-${tid}, #bcc-${wid}-${tid}`).prev("label").removeClass("required");
 
 			var SENDERS_EMAILS = [{
 				email: "somethinggoodone@gmail.com"
@@ -704,39 +695,11 @@
 			$(`.done-${wid}-${tid}`).on('click', function (e) {
 				e.preventDefault()
 				e.stopPropagation()
-				checkFormValidation()
 				console.log(JSON.stringify(getEmailValues(wid, tid), null, 4));
 				// if (getEmailValues(wid, tid)) {
 				// $(`#task-modal-${wid}-${tid}`).modal('hide');
 				// }
 			})
-
-			function checkFormValidation() {
-				let sesRegion = $(`#ses_region-${wid}-${tid}`).val();
-				if(sesRegion === "amazon"){
-					let sesKeyId = $(`#ses_key_id-${wid}-${tid}`).val();
-					let sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
-					if (sesRegion === "" || sesKeyId === "" || sesSecret === "") {
-						$(`#form-${wid}-${tid}`).addClass("was-validated");
-					}
-				} else if(sesRegion === "sendgrid"){
-					let sendGridKey = $(`#send_grid_key-${wid}-${tid}`).val();
-					if (sendGridKey === "") {
-						$(`#form-${wid}-${tid}`).addClass("was-validated");
-					}
-				} else if(sesRegion === "sparkpost"){
-					let sparkPostKey = $(`#spark_post_key-${wid}-${tid}`).val();
-					if (sparkPostKey === "") {
-						$(`#form-${wid}-${tid}`).addClass("was-validated");
-					}
-				}
-				let to = $(`#to-${wid}-${tid}`).val();
-				let cc = $(`#cc-${wid}-${tid}`).val();
-				let bcc = $(`#bcc-${wid}-${tid}`).val();
-				if (to === "" || cc === "" || bcc === "") {
-					$(`#form-${wid}-${tid}`).addClass("was-validated");
-				}
-			}
 
 		}
 		// Delete Instance
