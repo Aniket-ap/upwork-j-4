@@ -453,10 +453,10 @@
 											<label for="email-body-html-${wid}-${tid}" class="form-label">Email Body</label>
 											<div class="container position-relative border p-0">
 						
-													<small id="showpreview" class="bg-theme stool position-absolute top-0 end-0 p-2">
+													<small id="showpreview-${wid}-${tid}" class="bg-theme stool position-absolute top-0 end-0 p-2">
 														PREVIEW
 													</small>
-													<small id="showhtml" class="bg-theme stool position-absolute top-0 end-0 p-2" style="display:none">
+													<small id="showhtml-${wid}-${tid}" class="bg-theme stool position-absolute top-0 end-0 p-2" style="display:none">
 														VIEW HTML
 													</small>			
 													<textarea id="editor-html-${wid}-${tid}" class="form-control m-0 p-2 border-0" style="width:100%;resize: none;outline: none"></textarea>
@@ -563,16 +563,16 @@
 				}
 			});
 
-			$("#showpreview").click(function () {
+			$(`#showpreview-${wid}-${tid}`).click(function () {
 				$(this).hide();
 				let embody = $(`#editor-html-${wid}-${tid}`).val()
 				$(`#embody-preview-${wid}-${tid}`).contents().find('body').html(embody)
-				$(`#showhtml,#embody-preview-${wid}-${tid}`).show();
+				$(`#showhtml-${wid}-${tid},#embody-preview-${wid}-${tid}`).show();
 				$(`#editor-html-${wid}-${tid}`).hide();
 			});
-			$("#showhtml").click(function () {
+			$(`#showhtml-${wid}-${tid}`).click(function () {
 				$(this).hide();
-				$(`#showpreview,#editor-html-${wid}-${tid}`).show();
+				$(`#showpreview-${wid}-${tid},#editor-html-${wid}-${tid}`).show();
 				$(`#embody-preview-${wid}-${tid}`).hide();
 			});
 
