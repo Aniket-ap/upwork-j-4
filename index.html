@@ -169,7 +169,6 @@
 			text-transform: uppercase;
 			z-index: 999;
 		}
-
 	</style>
 </head>
 
@@ -225,36 +224,36 @@
 			} else if (val === "amazon") {
 				result.serviceName = "Amazon SES";
 				let region = $(`#ses_region-${wid}-${tid}`).val()
-				if(region === ""){
+				if (region === "") {
 					alert("Please choose AWS Region.");
 					return;
 				}
 				result.sesRegion = region;
 				let sesKey = $(`#ses_key_id-${wid}-${tid}`).val();
-				if(sesKey === ""){
-					alert("SES Key id value should not be empty.");
+				if (sesKey === "") {
+					alert("SES Key ID should not be empty.");
 					return;
 				}
 				result.sesKeyId = sesKey;
 				let sesSecret = $(`#ses_secret-${wid}-${tid}`).val();
-				if(sesSecret === ""){
-					alert("SES Secret value should not be empty.");
+				if (sesSecret === "") {
+					alert("SES Secret should not be empty.");
 					return;
 				}
 				result.sesSecret = sesSecret
 			} else if (val === "sendgrid") {
 				result.serviceName = "SendGrid"
 				let sendGrid = $(`#send_grid_key-${wid}-${tid}`).val();
-				if(sendGrid === ""){
-					alert("SendGrid API Key value should not be empty.");
+				if (sendGrid === "") {
+					alert("SendGrid API Key should not be empty.");
 					return;
 				}
 				result.sendGridKey = sendGrid;
 			} else if (val === "sparkpost") {
 				result.serviceName = "SparkPost"
 				let sparkPost = $(`#spark_post_key-${wid}-${tid}`).val();
-				if(sparkPost === ""){
-					alert("sparkPost API Key value should not be empty.");
+				if (sparkPost === "") {
+					alert("sparkPost API Key should not be empty.");
 					return;
 				}
 				result.sparkPostKey = sparkPost;
@@ -277,32 +276,16 @@
 			let toVal = $(`#to-${wid}-${tid}`).val();
 			let ccVal = $(`#cc-${wid}-${tid}`).val();
 			let bccVal = $(`#bcc-${wid}-${tid}`).val();
-			if(toVal === ""){
-				alert("TO value should not be empty.");
+			if ((toVal === "") && (ccVal === "") && (bccVal === "")) {
+				alert("Recipient TO/CC/BCC should not be empty.");
 				return;
-			} else {
-				result.to = toVal;
 			}
-			if(ccVal === ""){
-				alert("CC value should not be empty.");
-				return;
-			} else {
-				result.cc = ccVal;
-			}
-			if(bccVal === ""){
-				alert("BCC value should not be empty.");
-				return;
-			} else {
-				result.bcc = bccVal;
-			}
+			result.to = toVal;
+			result.cc = ccVal;
+			result.bcc = bccVal;
 
 			return result;
 		}
-		// Dynamic columnName
-		function toColumnName(d) {
-			for (var a = "", b = 1, c = 26; 0 <= (d -= b); b = c, c *= 26) a = String.fromCharCode(parseInt(d % c / b) + 65) + a;
-			return a
-		};
 
 		function createTask_Email(wid, task) {
 			var tid = task?.id ? task.id : Math.random().toString(36).substr(2, 8);
@@ -468,20 +451,16 @@
 									<tr class="email-bodyhtml-section-${wid}-${tid}">
 										<td class="p-3" colspan="3">
 											<label for="email-body-html-${wid}-${tid}" class="form-label">Email Body</label>
-											<div class="container position-relative border">
-												<div class="toolbar mt-3">
-													<small id="showpreview" class="btn btn-sm bg-light border border-secondary stool position-absolute top-0 end-0 px-2">
-														Preview
+											<div class="container position-relative border p-0">
+						
+													<small id="showpreview" class="bg-theme stool position-absolute top-0 end-0 p-2">
+														PREVIEW
 													</small>
-													<small id="showhtml" class="btn btn-sm bg-light border border-secondary stool position-absolute top-0 end-0 px-2" style="display:none">
-														HTML
-													</small>
-												</div>
-												<div>
-													<textarea id="editor-html-${wid}-${tid}" class="form-control m-0 p-0 border-0 mt-2" style="width:100%;resize: none;outline: none"></textarea>
-
-													<iframe src="javascript:void(0);" id="embody-preview-${wid}-${tid}" style="width:100%;">
-
+													<small id="showhtml" class="bg-theme stool position-absolute top-0 end-0 p-2" style="display:none">
+														VIEW HTML
+													</small>			
+													<textarea id="editor-html-${wid}-${tid}" class="form-control m-0 p-2 border-0" style="width:100%;resize: none;outline: none"></textarea>
+													<iframe src="javascript:void(0);" class="hide p-2" id="embody-preview-${wid}-${tid}" style="width:100%;height: 250px;">
 													</iframe>
 												</div>
 											</div>
@@ -491,12 +470,12 @@
 									<tr class="google-docs-section-${wid}-${tid}">
 										<td class="p-3" colspan="2">
 											<input id="email_template_mime-${wid}-${tid}" type="text" class="hide form-control" readonly>
-											<label for="button_email_template_name-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
+											<label class="form-label" for="button_email_template_name-${wid}-${tid}">Google Docs Template<sup class="text-danger">*</sup>
 												<a class="hide openlink" href=""><i class="initial material-symbols-outlined icon-text-primary align-middle">open_in_new</i></a>
 											</label>
 											<div class="input-group">
 												<input id="email_template_name-${wid}-${tid}" type="text" class="form-control" aria-label="Choose Docs Template">
-												<input id="email_template_id-${wid}-${tid}" type="hidden" value="xxxxxxxxxxxxxxxxxx" />
+												<input id="email_template_id-${wid}-${tid}" type="hidden" value="" />
 												<button class="btn btn-outline-primary" type="button" id="button_email_template_name-${wid}-${tid}">
 												<span class="initial align-middle align-middle material-symbols-outlined">folder_open</span>&nbsp;<span class="btn-text">Choose</span></button>
 											</div>
@@ -584,18 +563,18 @@
 				}
 			});
 
-			$("#showpreview").click(function() {
+			$("#showpreview").click(function () {
 				$(this).hide();
 				let embody = $(`#editor-html-${wid}-${tid}`).val()
-				$(`#embody-preview-${wid}-${tid}`).contents().find('html').html(embody)
+				$(`#embody-preview-${wid}-${tid}`).contents().find('body').html(embody)
 				$(`#showhtml,#embody-preview-${wid}-${tid}`).show();
 				$(`#editor-html-${wid}-${tid}`).hide();
 			});
-			$("#showhtml").click(function() {
+			$("#showhtml").click(function () {
 				$(this).hide();
 				$(`#showpreview,#editor-html-${wid}-${tid}`).show();
 				$(`#embody-preview-${wid}-${tid}`).hide();
-			}); 
+			});
 
 			$(`#editor_type-${wid}-${tid}`).on("change", function () {
 				var value = $(this).children('option:selected').val();
