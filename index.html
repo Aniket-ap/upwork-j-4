@@ -263,7 +263,7 @@
 			let editorTypeValue = $(`#editor_type-${wid}-${tid}`).val();
 			if (editorTypeValue === "wysiwyg") {
 				result.editorType = "wysiwyg";
-				result.htmlBody = "Working on it, will update on next change";
+				result.htmlBody = $(`#editor-${wid}-${tid} .ql-editor`).html();
 				// result.htmlBody = quill.root.innerHTML;
 			} else if (editorTypeValue === "html") {
 				result.editorType = "html";
