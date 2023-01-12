@@ -259,6 +259,7 @@
 				result.sparkPostKey = sparkPost;
 			}
 
+			result.subject = $(`#subject-${wid}-${tid}`).val();
 			let editorTypeValue = $(`#editor_type-${wid}-${tid}`).val();
 			if (editorTypeValue === "wysiwyg") {
 				result.editorType = "wysiwyg";
@@ -269,7 +270,6 @@
 				result.htmlBody = $(`#editor-html-${wid}-${tid}`).val();
 			} else if (editorTypeValue === "docs") {
 				result.editorType = "docs";
-				result.subject = $(`#subject-${wid}-${tid}`).val();
 				result.emailTemplateName = $(`#email_template_name-${wid}-${tid}`).val();
 			}
 
